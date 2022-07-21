@@ -1,14 +1,28 @@
 import 'package:flutter_social_demo/repository/models/address_model.dart';
 import 'package:flutter_social_demo/repository/models/company_model.dart';
+import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_model.g.dart';
 
 @JsonSerializable()
-class User {
+@HiveType(typeId: 2)
+class User extends HiveObject {
+  @HiveField(0)
   final int id;
-  final String name, username, email, phone, website;
+  @HiveField(1)
+  final String name;
+  @HiveField(2)
+  final String username;
+  @HiveField(3)
+  final String email;
+  @HiveField(4)
+  final String phone;
+  @HiveField(5)
+  final String website;
+  @HiveField(6)
   final Address address;
+  @HiveField(7)
   final Company company;
 
   User({

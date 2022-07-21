@@ -3,11 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_social_demo/app/config/app_router.dart';
 import 'package:flutter_social_demo/app/theme/theme.dart';
+import 'package:flutter_social_demo/services/hive_service.dart';
+import 'package:flutter_social_demo/services/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await SharedStorageService.init();
-  // await HiveService.init();
+  await SharedStorageService.init();
+  await HiveService.init();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
 }

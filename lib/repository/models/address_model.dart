@@ -1,11 +1,21 @@
 import 'package:flutter_social_demo/repository/models/geo_location_model.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:hive/hive.dart';
 
 part 'address_model.g.dart';
 
 @JsonSerializable()
-class Address {
-  final String street, suite, city, zipcode;
+@HiveType(typeId: 1)
+class Address extends HiveObject {
+  @HiveField(0)
+  final String street;
+  @HiveField(1)
+  final String suite;
+  @HiveField(2)
+  final String city;
+  @HiveField(3)
+  final String zipcode;
+  @HiveField(4)
   final GeoLocation geo;
 
   Address({
