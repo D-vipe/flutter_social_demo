@@ -42,6 +42,8 @@ class PostsCubit extends Cubit<PostsState> {
 
   Future<void> getDetail({required int id}) async {
     try {
+      emit(PostRequested());
+
       Post? data = await _repository.getPostDetail(postId: id);
       if (data == null) {
         emit(PostError(error: GeneralErrors.emptyData));

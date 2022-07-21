@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:flutter_social_demo/repository/models/address_model.dart';
+import 'package:flutter_social_demo/repository/models/comment_model.dart';
 import 'package:flutter_social_demo/repository/models/company_model.dart';
 import 'package:flutter_social_demo/repository/models/geo_location_model.dart';
 import 'package:flutter_social_demo/repository/models/post_model.dart';
@@ -18,6 +19,7 @@ class HiveService {
     Hive.registerAdapter(CompanyAdapter());
     Hive.registerAdapter(GeoLocationAdapter());
     Hive.registerAdapter(PostAdapter());
+    Hive.registerAdapter(CommentAdapter());
 
     users = await Hive.openBox<User>('users');
     posts = await Hive.openBox<Post>('posts');

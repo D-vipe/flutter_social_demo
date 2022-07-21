@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
-import 'package:flutter_social_demo/app/theme/text_styles.dart';
+import 'package:flutter_social_demo/app/uikit/card_row.dart';
 
 class UserCard extends StatelessWidget {
   final String name;
@@ -28,44 +28,23 @@ class UserCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              _CardRow(
+              CardRow(
                 value: userName,
                 title: AppDictionary.userName,
+                reduceWidth: 150,
               ),
               const SizedBox(
                 height: 10,
               ),
-              _CardRow(title: AppDictionary.name, value: name)
+              CardRow(
+                title: AppDictionary.name,
+                value: name,
+                reduceWidth: 94,
+              )
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-class _CardRow extends StatelessWidget {
-  final String title;
-  final String value;
-  const _CardRow({Key? key, required this.title, required this.value})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          '$title: ',
-          style: AppTextStyle.comforta14W400.apply(color: AppColors.orange),
-        ),
-        const SizedBox(
-          width: 8,
-        ),
-        Text(
-          value,
-          style: AppTextStyle.comforta16W600,
-        )
-      ],
     );
   }
 }

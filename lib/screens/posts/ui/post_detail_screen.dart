@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_social_demo/app/config/route_arguments/route_arguments.dart';
+import 'package:flutter_social_demo/app/constants/app_colors.dart';
+import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
+import 'package:flutter_social_demo/app/constants/errors_const.dart';
+import 'package:flutter_social_demo/app/theme/text_styles.dart';
+import 'package:flutter_social_demo/app/uikit/card_row.dart';
+import 'package:flutter_social_demo/app/uikit/empty_result.dart';
+import 'package:flutter_social_demo/app/uikit/error_page.dart';
+import 'package:flutter_social_demo/app/uikit/loader_page.dart';
+import 'package:flutter_social_demo/repository/models/comment_model.dart';
+import 'package:flutter_social_demo/repository/models/post_model.dart';
 import 'package:flutter_social_demo/screens/posts/bloc/posts_cubit.dart';
 
 class PostDetailScreen extends StatelessWidget {
@@ -36,6 +46,224 @@ class _PostDetailViewState extends State<PostDetailView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return BlocBuilder<PostsCubit, PostsState>(builder: (context, state) {
+      final bool receivedState = state is PostDetailReceived;
+      final bool loadingState = state is PostRequested;
+      final bool errorState = state is PostError;
+      String errorMessage = '';
+      Post? post;
+
+      if (errorState) {
+        errorMessage = state.error;
+      }
+      if (receivedState) {
+        post = state.data;
+      }
+
+      return Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 50,
+          centerTitle: true,
+          backgroundColor: AppColors.mainTheme,
+          title: Text(
+            post != null ? post.title : AppDictionary.postDetailTitle,
+            style: AppTextStyle.comforta16W400.apply(color: AppColors.white),
+          ),
+          leading: GestureDetector(
+            onTap: () => Navigator.of(context).pop(),
+            child: const Icon(
+              Icons.chevron_left,
+              size: 30,
+              color: AppColors.white,
+            ),
+          ),
+        ),
+        backgroundColor: AppColors.white,
+        extendBody: true,
+        body: Column(
+          children: [
+            Expanded(
+              child: CustomScrollView(
+                // physics: const BouncingScrollPhysics(),
+                slivers: [
+                  SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      return receivedState
+                          ? post != null
+                              ? _DetailPostBody(
+                                  body: post.body,
+                                  title: post.title,
+                                  comments: post.comments,
+                                )
+                              : const EmptyPage(
+                                  message: GeneralErrors.emptyData)
+                          : loadingState
+                              ? const LoaderPage()
+                              : ErrorPage(message: errorMessage);
+                    },
+                    childCount: 1,
+                  )),
+                  const SliverPadding(
+                    sliver: null,
+                    padding: EdgeInsets.only(bottom: 25),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      );
+    });
+  }
+}
+
+class _DetailPostBody extends StatelessWidget {
+  final String title;
+  final String body;
+  final List<Comment>? comments;
+  const _DetailPostBody({
+    Key? key,
+    required this.title,
+    required this.body,
+    this.comments,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width - 30,
+                child: Text(
+                  title,
+                  style: AppTextStyle.comforta18W700
+                      .apply(color: AppColors.orange),
+                  textAlign: TextAlign.center,
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 20),
+          Text(
+            body,
+            style: AppTextStyle.comforta14W400,
+          ),
+          const SizedBox(height: 20),
+          (comments != null && (comments!.isNotEmpty))
+              ? _PostComments(
+                  comments: comments!,
+                )
+              : Container()
+        ],
+      ),
+    );
+  }
+}
+
+class _PostComments extends StatelessWidget {
+  final List<Comment> comments;
+  const _PostComments({Key? key, required this.comments}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '${AppDictionary.commentsTitle}: ',
+          style: AppTextStyle.comforta14W400.apply(
+            color: AppColors.orange,
+            fontStyle: FontStyle.italic,
+            decoration: TextDecoration.underline,
+          ),
+        ),
+        const SizedBox(height: 15),
+        Column(
+          children: List.generate(
+              comments.length,
+              (index) => _CommentCard(
+                    name: comments[index].name,
+                    email: comments[index].email,
+                    body: comments[index].body,
+                    index: index,
+                  )),
+        )
+      ],
+    );
+  }
+}
+
+class _CommentCard extends StatelessWidget {
+  final String name;
+  final String email;
+  final String body;
+  final int index;
+  const _CommentCard({
+    Key? key,
+    required this.name,
+    required this.email,
+    required this.body,
+    required this.index,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment:
+          (index % 2 == 0) ? MainAxisAlignment.start : MainAxisAlignment.end,
+      children: [
+        Container(
+          margin: const EdgeInsets.only(bottom: 15),
+          width: MediaQuery.of(context).size.width - 50,
+          child: Card(
+            margin: EdgeInsets.zero,
+            shadowColor: AppColors.mainTheme,
+            elevation: 5,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+              child: Column(
+                crossAxisAlignment: (index % 2 == 0)
+                    ? CrossAxisAlignment.start
+                    : CrossAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: CardRow(
+                      title: AppDictionary.name,
+                      value: name,
+                      reduceWidth: 120,
+                      valueStyle: AppTextStyle.comforta14W400,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  CardRow(
+                    title: AppDictionary.email,
+                    value: email,
+                    valueStyle: AppTextStyle.comforta14W400,
+                    reduceWidth: 126,
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    body,
+                    style: AppTextStyle.comforta14W400,
+                  )
+                ],
+              ),
+            ),
+          ),
+        )
+      ],
+    );
   }
 }

@@ -4,7 +4,10 @@ class AppDictionary {
   static const String releaseTip = 'Отпустите...';
   static const String noMoreData = 'Больше нечего загружать';
   static const String name = 'Имя';
+  static const String email = 'Email';
   static const String userName = 'Псевдоним';
+  static const String postDetailTitle = 'Просмотр записи';
+  static const String commentsTitle = 'Коментарии';
 }
 
 class AppBarTitles {
