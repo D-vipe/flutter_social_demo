@@ -34,7 +34,6 @@ class _TabsScaffoldState extends State<TabsScaffold> {
     super.initState();
     index = widget.requestedIndex ?? 0;
     _pageController = PageController(initialPage: index);
-    _updateFloatingButtons();
     _updateTabWidgets();
   }
 
@@ -71,21 +70,6 @@ class _TabsScaffoldState extends State<TabsScaffold> {
           child: Text('Profile'),
         ),
       ),
-    ];
-  }
-
-  void _updateFloatingButtons() {
-    floatingButtons = [
-      null,
-      FloatingActionButton(
-        onPressed: () {
-          debugPrint('clicked!');
-        },
-        backgroundColor: AppColors.mainTheme,
-        child: const Icon(Icons.add),
-      ),
-      null,
-      null,
     ];
   }
 
@@ -129,29 +113,23 @@ class _TabsScaffoldState extends State<TabsScaffold> {
                 splashRadius: .1,
                 onPressed: () => onChangedTab(0),
               ),
-              Container(
-                margin: const EdgeInsets.only(right: 25),
-                child: IconButton(
-                  icon: SvgPicture.asset(
-                    AppIcons.posts,
-                    color: index == 1 ? AppColors.black : AppColors.white,
-                    width: 25,
-                  ),
-                  splashRadius: .1,
-                  onPressed: () => onChangedTab(1),
+              IconButton(
+                icon: SvgPicture.asset(
+                  AppIcons.posts,
+                  color: index == 1 ? AppColors.black : AppColors.white,
+                  width: 25,
                 ),
+                splashRadius: .1,
+                onPressed: () => onChangedTab(1),
               ),
-              Container(
-                margin: const EdgeInsets.only(left: 25),
-                child: IconButton(
-                  icon: SvgPicture.asset(
-                    AppIcons.gallery,
-                    color: index == 2 ? AppColors.black : AppColors.white,
-                    width: 25,
-                  ),
-                  splashRadius: .1,
-                  onPressed: () => onChangedTab(2),
+              IconButton(
+                icon: SvgPicture.asset(
+                  AppIcons.gallery,
+                  color: index == 2 ? AppColors.black : AppColors.white,
+                  width: 25,
                 ),
+                splashRadius: .1,
+                onPressed: () => onChangedTab(2),
               ),
               IconButton(
                 icon: SvgPicture.asset(
@@ -166,8 +144,6 @@ class _TabsScaffoldState extends State<TabsScaffold> {
           ),
         ),
       ),
-      floatingActionButton: floatingButtons[index],
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

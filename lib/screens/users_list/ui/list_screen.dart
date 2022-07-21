@@ -104,7 +104,7 @@ class _UsersListViewState extends State<UsersListView>
                             name: users![i].name,
                             userName: users[i].username,
                           ),
-                          // itemExtent: 94.0,
+                          itemExtent: 94.0,
                           itemCount: users.length,
                           padding: const EdgeInsets.only(bottom: 95),
                         )
