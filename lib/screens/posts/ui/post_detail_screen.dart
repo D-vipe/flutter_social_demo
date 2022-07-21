@@ -84,7 +84,7 @@ class _PostDetailViewState extends State<PostDetailView> {
           children: [
             Expanded(
               child: CustomScrollView(
-                // physics: const BouncingScrollPhysics(),
+                physics: const AlwaysScrollableScrollPhysics(),
                 slivers: [
                   SliverList(
                       delegate: SliverChildBuilderDelegate(
@@ -98,9 +98,18 @@ class _PostDetailViewState extends State<PostDetailView> {
                                 )
                               : const EmptyPage(
                                   message: GeneralErrors.emptyData)
-                          : loadingState
-                              ? const LoaderPage()
-                              : ErrorPage(message: errorMessage);
+                          : Column(
+                              children: [
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height,
+                                  child: loadingState
+                                      ? const LoaderPage()
+                                      : ErrorPage(
+                                          message: errorMessage,
+                                        ),
+                                ),
+                              ],
+                            );
                     },
                     childCount: 1,
                   )),
@@ -135,6 +144,7 @@ class _DetailPostBody extends StatelessWidget {
       margin: const EdgeInsets.only(top: 20),
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
