@@ -32,6 +32,12 @@ class AppTextStyle {
     fontWeight: FontWeight.w400,
   );
 
+  static const comforta16W600 = TextStyle(
+    fontFamily: 'Comfortaa',
+    fontSize: 16.0,
+    fontWeight: FontWeight.w600,
+  );
+
   static const comforta18W400 = TextStyle(
     fontFamily: 'Comfortaa',
     fontSize: 18.0,

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DioSettings {
-  static const String baseUrl = 'https://jsonplaceholder.typicode.com/';
+  static const String baseUrl = 'https://jsonplaceholder.typicode.com';
 
   final BaseOptions _dioBaseOptions = BaseOptions(
     baseUrl: baseUrl,

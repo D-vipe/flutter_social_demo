@@ -1,6 +1,6 @@
 class GeneralErrors {
-  static const String phoneError = 'Пользователь не найден';
-  static const String passwordError = 'Неверный пароль';
-  static const String userExists = 'Пользователь существует';
   static const String generalError = 'Что-то пошло не так...';
+  static const String loadError = 'Произошла ошибка';
+  static const String parseError = 'Произошла ошибка при обработке данных';
+  static const String emptyUsers = 'Не удалось получить список пользователей';
 }

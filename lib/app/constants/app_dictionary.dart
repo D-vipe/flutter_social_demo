@@ -1,5 +1,10 @@
 class AppDictionary {
-  static const String phoneNumberPlaceHolder = '+7 (   )';
+  static const String loadMoreTip = 'Потяните вверх чтобы загрузить еще';
+  static const String refreshTip = 'Потяните вниз для обновления';
+  static const String releaseTip = 'Отпустите...';
+  static const String noMoreData = 'Больше нечего загружать';
+  static const String name = 'Имя';
+  static const String userName = 'Псевдоним';
 }
 
 class AppBarTitles {

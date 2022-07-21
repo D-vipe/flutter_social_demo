@@ -3,6 +3,7 @@ import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
 import 'package:flutter_social_demo/app/theme/text_styles.dart';
 import 'package:flutter_social_demo/resources/resources.dart';
+import 'package:flutter_social_demo/screens/users_list/ui/list_screen.dart';
 import 'package:flutter_svg/svg.dart';
 
 class TabsScaffold extends StatefulWidget {
@@ -54,11 +55,7 @@ class _TabsScaffoldState extends State<TabsScaffold> {
 
   void _updateTabWidgets() {
     tabs = [
-      Container(
-        child: const Center(
-          child: Text('List'),
-        ),
-      ),
+      const ListScreen(),
       Container(
         child: const Center(
           child: Text('Posts'),
@@ -96,6 +93,7 @@ class _TabsScaffoldState extends State<TabsScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 50,
         centerTitle: true,
         backgroundColor: AppColors.mainTheme,
         title: Text(
