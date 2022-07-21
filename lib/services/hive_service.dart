@@ -31,6 +31,10 @@ class HiveService {
     return posts.values.toList() as List<Post>;
   }
 
+  static Future<Post?> getPost({required int id}) async {
+    return await posts.get(id);
+  }
+
   // put all received posts into the box
   static Future<void> addPosts({required List<Post> data}) async {
     // clear box first

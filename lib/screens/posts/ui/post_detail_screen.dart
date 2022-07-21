@@ -31,7 +31,7 @@ class _PostDetailViewState extends State<PostDetailView> {
   void initState() {
     super.initState();
 
-    // context.read<PostsCubit>().getDetail(id: widget.id);
+    context.read<PostsCubit>().getDetail(id: widget.id);
   }
 
   @override

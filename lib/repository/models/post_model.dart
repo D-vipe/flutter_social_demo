@@ -1,3 +1,4 @@
+import 'package:flutter_social_demo/repository/models/comment_model.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -14,13 +15,15 @@ class Post extends HiveObject {
   final String title;
   @HiveField(3)
   final String body;
+  @HiveField(4)
+  List<Comment>? comments = [];
 
-  Post({
-    required this.id,
-    required this.userId,
-    required this.title,
-    required this.body,
-  });
+  Post(
+      {required this.id,
+      required this.userId,
+      required this.title,
+      required this.body,
+      this.comments});
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
 

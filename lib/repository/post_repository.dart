@@ -1,5 +1,6 @@
 import 'package:flutter_social_demo/api/post_api.dart';
 import 'package:flutter_social_demo/app/config/exceptions.dart';
+import 'package:flutter_social_demo/repository/models/comment_model.dart';
 import 'package:flutter_social_demo/repository/models/post_model.dart';
 import 'package:flutter_social_demo/services/caching_service.dart';
 import 'package:flutter_social_demo/services/hive_service.dart';
@@ -30,6 +31,37 @@ class PostRepository {
       }
 
       return data;
+    } on ParseException {
+      rethrow;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Post?> getPostDetail({required int postId}) async {
+    try {
+      Post? data;
+      // First check if we have anything cached
+      // If there is nothing, then fetch fresh data
+      data = await HiveService.getPost(id: postId);
+      // if data is null
+      data ??= await _postsApi.getPostData(id: postId);
+
+      return data;
+    } on ParseException {
+      rethrow;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<Comment>> getPostComments({required int postId}) async {
+    try {
+      List<Comment> comments = [];
+      // if data is null
+      comments = await _postsApi.getComments(postId: postId);
+
+      return comments;
     } on ParseException {
       rethrow;
     } catch (e) {

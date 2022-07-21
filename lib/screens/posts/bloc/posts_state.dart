@@ -32,3 +32,9 @@ class PostReceivedMore extends PostsState {
   @override
   List<Object?> get props => [list];
 }
+
+class PostDetailReceived extends PostsState {
+  final Post? data;
+
+  PostDetailReceived({required this.data});
+}
