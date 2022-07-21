@@ -7,7 +7,7 @@ import 'package:flutter_social_demo/repository/models/user_model.dart';
 class UserApi {
   final Dio _dio;
   final String _baseUrl = DioSettings.baseUrl;
-  final String _homeworkPath = Path.userList;
+  final String _listPath = Path.userList;
 
   UserApi({
     Dio? dio,
@@ -15,7 +15,7 @@ class UserApi {
 
   Future<List<User>> getList({int? page}) async {
     try {
-      Response response = await _dio.get('$_baseUrl$_homeworkPath');
+      Response response = await _dio.get('$_baseUrl$_listPath');
 
       return _parseListResponse(response);
     } on ParseException {

@@ -56,7 +56,7 @@ class _CardRow extends StatelessWidget {
       children: [
         Text(
           '$title: ',
-          style: AppTextStyle.comforta14W400,
+          style: AppTextStyle.comforta14W400.apply(color: AppColors.orange),
         ),
         const SizedBox(
           width: 8,

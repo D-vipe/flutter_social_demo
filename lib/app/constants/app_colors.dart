@@ -9,4 +9,5 @@ class AppColors {
   static const Color markBlue = Color.fromRGBO(185, 203, 229, 1);
   static const Color errorRed = Color.fromRGBO(255, 75, 107, 1);
   static const Color lightRed = Color.fromRGBO(255, 83, 114, 1);
+  static const Color orange = Color.fromRGBO(255, 162, 23, 1);
 }

@@ -11,8 +11,8 @@ import 'package:flutter_social_demo/screens/users_list/bloc/users_list_cubit.dar
 import 'package:flutter_social_demo/screens/users_list/ui/widgets/user_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class ListScreen extends StatelessWidget {
-  const ListScreen({Key? key}) : super(key: key);
+class UsersListScreen extends StatelessWidget {
+  const UsersListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

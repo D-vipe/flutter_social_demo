@@ -1,3 +1,4 @@
+import 'package:flutter_social_demo/repository/models/post_model.dart';
 import 'package:flutter_social_demo/repository/models/user_model.dart';
 import 'package:flutter_social_demo/services/hive_service.dart';
 import 'package:flutter_social_demo/services/shared_preferences.dart';
@@ -27,6 +28,10 @@ class CachingService {
     return res;
   }
 
+  static Future<void> setLoggedUser() async {
+    await SharedStorageService.setString(PreferenceKey.userId, '1');
+  }
+
   static Future<void> setCachingTime(
       {required PreferenceKey key, required DateTime time}) async {
     await SharedStorageService.setString(key, time.toString());
@@ -34,6 +39,10 @@ class CachingService {
 
   static void cacheUserList({required List<User> list}) {
     HiveService.addUsers(data: list);
+  }
+
+  static void cachePostList({required List<Post> list}) {
+    HiveService.addPosts(data: list);
   }
 
   static List<User> getCachedUsers() {
