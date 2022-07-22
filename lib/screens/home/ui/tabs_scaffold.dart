@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_social_demo/app/theme/text_styles.dart';
 import 'package:flutter_social_demo/resources/resources.dart';
 import 'package:flutter_social_demo/screens/albums/ui/albums_list_screen.dart';
 import 'package:flutter_social_demo/screens/posts/ui/posts_list_screen.dart';
+import 'package:flutter_social_demo/screens/profile/ui/profile_screen.dart';
 import 'package:flutter_social_demo/screens/users_list/ui/users_list_screen.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -27,7 +29,6 @@ class _TabsScaffoldState extends State<TabsScaffold> {
     AppBarTitles.userList,
     AppBarTitles.userPosts,
     AppBarTitles.userGallery,
-    AppBarTitles.userProfile,
   ];
   int index = 0;
 
@@ -51,7 +52,6 @@ class _TabsScaffoldState extends State<TabsScaffold> {
       index = value;
     });
     _pageController.jumpToPage(index);
-    debugPrint('current index: $index');
   }
 
   void _updateTabWidgets() {
@@ -59,10 +59,8 @@ class _TabsScaffoldState extends State<TabsScaffold> {
       const UsersListScreen(),
       const PostsListScreen(),
       const AlbumsListScreen(),
-      Container(
-        child: const Center(
-          child: Text('Profile'),
-        ),
+      ProfileScreen(
+        onChangedTab: onChangedTab,
       ),
     ];
   }
@@ -70,15 +68,18 @@ class _TabsScaffoldState extends State<TabsScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 50,
-        centerTitle: true,
-        backgroundColor: AppColors.mainTheme,
-        title: Text(
-          appBarTitles[index],
-          style: AppTextStyle.comforta16W400.apply(color: AppColors.white),
-        ),
-      ),
+      appBar: index != 3
+          ? AppBar(
+              toolbarHeight: 50,
+              centerTitle: true,
+              backgroundColor: AppColors.mainTheme,
+              title: Text(
+                appBarTitles[index],
+                style:
+                    AppTextStyle.comforta16W400.apply(color: AppColors.white),
+              ),
+            )
+          : null,
       backgroundColor: AppColors.white,
       extendBody: true,
       body: PageView(

@@ -7,6 +7,7 @@ enum PreferenceKey {
   userListCacheTime,
   albumListCacheTime,
   postListCacheTime,
+  profileCacheTime,
 }
 
 class SharedStorageService {

@@ -6,6 +6,7 @@ import 'package:flutter_social_demo/repository/models/company_model.dart';
 import 'package:flutter_social_demo/repository/models/geo_location_model.dart';
 import 'package:flutter_social_demo/repository/models/photo_model.dart';
 import 'package:flutter_social_demo/repository/models/post_model.dart';
+import 'package:flutter_social_demo/repository/models/profile_model.dart';
 import 'package:flutter_social_demo/repository/models/user_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -25,10 +26,11 @@ class HiveService {
     Hive.registerAdapter(CommentAdapter());
     Hive.registerAdapter(AlbumAdapter());
     Hive.registerAdapter(PhotoAdapter());
+    Hive.registerAdapter(ProfileAdapter());
 
     users = await Hive.openBox<User>('users');
     // Box for caching authed user data;
-    profile = await Hive.openBox<User>('profile');
+    profile = await Hive.openBox<Profile>('profile');
     posts = await Hive.openBox<Post>('posts');
     albums = await Hive.openBox<Album>('albums');
   }
@@ -43,6 +45,11 @@ class HiveService {
 
   static List<Album> getAlbums() {
     return albums.values.toList() as List<Album>;
+  }
+
+  // get profile by userId
+  static Future<Profile?> getProfile({required int userId}) async {
+    return await profile.get(userId);
   }
 
   // get post by id
@@ -83,5 +90,13 @@ class HiveService {
     for (var element in data) {
       users.put(element.id, element);
     }
+  }
+
+  // put user profile into the box
+  static Future<void> addProfile({required Profile data}) async {
+    // clear box first
+    await profile.clear();
+
+    profile.put(data.user.id, data);
   }
 }

@@ -13,11 +13,23 @@ class UserApi {
     Dio? dio,
   }) : _dio = dio ?? DioSettings.createDio();
 
-  Future<List<User>> getList({int? page}) async {
+  Future<List<User>> getList() async {
     try {
       Response response = await _dio.get('$_baseUrl$_listPath');
 
       return _parseListResponse(response);
+    } on ParseException {
+      rethrow;
+    } catch (e) {
+      throw DioExceptions.fromDioError(e as DioError).message;
+    }
+  }
+
+  Future<User?> getById({required String id}) async {
+    try {
+      Response response = await _dio.get('$_baseUrl$_listPath/$id');
+
+      return _parseResponse(response);
     } on ParseException {
       rethrow;
     } catch (e) {
@@ -39,5 +51,19 @@ class UserApi {
     }
 
     return userList;
+  }
+
+  User? _parseResponse(Response response) {
+    User? user;
+
+    if (response.data != null || response.data.isNotEmpty) {
+      try {
+        user = User.fromJson(response.data);
+      } catch (e) {
+        throw ParseException();
+      }
+    }
+
+    return user;
   }
 }

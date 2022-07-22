@@ -9,7 +9,7 @@ import 'package:flutter_social_demo/services/shared_preferences.dart';
 class AlbumRepository {
   final AlbumApi _albumsApi = AlbumApi();
 
-  Future<List<Album>> getAlbumsList({int? page}) async {
+  Future<List<Album>> getAlbumsList() async {
     try {
       List<Album> data = [];
       bool needToFetch = true;

@@ -1,5 +1,6 @@
 import 'package:flutter_social_demo/repository/models/album_model.dart';
 import 'package:flutter_social_demo/repository/models/post_model.dart';
+import 'package:flutter_social_demo/repository/models/profile_model.dart';
 import 'package:flutter_social_demo/repository/models/user_model.dart';
 import 'package:flutter_social_demo/services/hive_service.dart';
 import 'package:flutter_social_demo/services/shared_preferences.dart';
@@ -38,16 +39,20 @@ class CachingService {
     await SharedStorageService.setString(key, time.toString());
   }
 
-  static void cacheUserList({required List<User> list}) {
-    HiveService.addUsers(data: list);
+  static void cacheUserList({required List<User> list}) async {
+    await HiveService.addUsers(data: list);
   }
 
-  static void cachePostList({required List<Post> list}) {
-    HiveService.addPosts(data: list);
+  static void cachePostList({required List<Post> list}) async {
+    await HiveService.addPosts(data: list);
   }
 
-  static void cacheAlbumList({required List<Album> list}) {
-    HiveService.addAlbums(data: list);
+  static void cacheAlbumList({required List<Album> list}) async {
+    await HiveService.addAlbums(data: list);
+  }
+
+  static void cacheProfile({required Profile data}) async {
+    await HiveService.addProfile(data: data);
   }
 
   static List<User> getCachedUsers() {
@@ -60,5 +65,9 @@ class CachingService {
 
   static List<Album> getCachedAlbums() {
     return HiveService.getAlbums();
+  }
+
+  static Future<Profile?> getCachedProfile({required int userId}) async {
+    return await HiveService.getProfile(userId: userId);
   }
 }

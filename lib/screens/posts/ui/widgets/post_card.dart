@@ -8,11 +8,13 @@ class PostCard extends StatelessWidget {
   final int postId;
   final String title;
   final String body;
+  final double? width;
   const PostCard({
     Key? key,
     required this.title,
     required this.body,
     required this.postId,
+    this.width,
   }) : super(key: key);
 
   @override
@@ -23,6 +25,7 @@ class PostCard extends StatelessWidget {
             id: postId,
           )),
       child: Container(
+        width: width,
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         child: Card(
           shadowColor: AppColors.mainTheme,
@@ -40,6 +43,8 @@ class PostCard extends StatelessWidget {
                   title,
                   style: AppTextStyle.comforta16W600
                       .apply(color: AppColors.orange),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(
                   height: 10,

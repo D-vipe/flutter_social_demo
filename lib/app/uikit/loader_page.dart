@@ -3,13 +3,15 @@ import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/uikit/loader.dart';
 
 class LoaderPage extends StatelessWidget {
-  const LoaderPage({Key? key}) : super(key: key);
+  final Widget? appBar;
+  const LoaderPage({Key? key, this.appBar}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        appBar ?? Container(),
         Expanded(
           child: Container(
             color: AppColors.black.withOpacity(.1),

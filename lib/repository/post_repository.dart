@@ -9,7 +9,7 @@ import 'package:flutter_social_demo/services/shared_preferences.dart';
 class PostRepository {
   final PostsApi _postsApi = PostsApi();
 
-  Future<List<Post>> getPostsList({int? page}) async {
+  Future<List<Post>> getPostsList() async {
     try {
       List<Post> data = [];
       bool needToFetch = true;
