@@ -1,15 +1,19 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+// Project imports:
 import 'package:flutter_social_demo/app/constants/errors_const.dart';
 import 'package:flutter_social_demo/app/uikit/empty_result.dart';
 import 'package:flutter_social_demo/app/uikit/error_page.dart';
 import 'package:flutter_social_demo/app/uikit/loader_page.dart';
 import 'package:flutter_social_demo/app/uikit/smart_refresh_components/refresh_header.dart';
+import 'package:flutter_social_demo/repository/models/album_model.dart';
 import 'package:flutter_social_demo/screens/albums/bloc/albums_cubit.dart';
 import 'package:flutter_social_demo/screens/albums/ui/widgets/album_card.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-
-import 'package:flutter_social_demo/repository/models/album_model.dart';
 
 class AlbumsListScreen extends StatelessWidget {
   const AlbumsListScreen({Key? key}) : super(key: key);

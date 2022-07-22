@@ -1,6 +1,9 @@
-import 'package:flutter_social_demo/repository/models/comment_model.dart';
+// Package imports:
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
+import 'package:flutter_social_demo/repository/models/comment_model.dart';
 
 part 'post_model.g.dart';
 

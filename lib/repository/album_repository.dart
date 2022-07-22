@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:flutter_social_demo/api/album_api.dart';
 import 'package:flutter_social_demo/app/config/exceptions.dart';
 import 'package:flutter_social_demo/repository/models/album_model.dart';

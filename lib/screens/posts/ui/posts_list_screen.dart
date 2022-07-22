@@ -1,5 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+// Project imports:
 import 'package:flutter_social_demo/app/constants/errors_const.dart';
 import 'package:flutter_social_demo/app/uikit/empty_result.dart';
 import 'package:flutter_social_demo/app/uikit/error_page.dart';
@@ -8,7 +14,6 @@ import 'package:flutter_social_demo/app/uikit/smart_refresh_components/refresh_h
 import 'package:flutter_social_demo/repository/models/post_model.dart';
 import 'package:flutter_social_demo/screens/posts/bloc/posts_cubit.dart';
 import 'package:flutter_social_demo/screens/posts/ui/widgets/post_card.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PostsListScreen extends StatelessWidget {
   const PostsListScreen({Key? key}) : super(key: key);

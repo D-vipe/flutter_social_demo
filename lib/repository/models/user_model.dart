@@ -1,7 +1,10 @@
-import 'package:flutter_social_demo/repository/models/address_model.dart';
-import 'package:flutter_social_demo/repository/models/company_model.dart';
+// Package imports:
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
+import 'package:flutter_social_demo/repository/models/address_model.dart';
+import 'package:flutter_social_demo/repository/models/company_model.dart';
 
 part 'user_model.g.dart';
 

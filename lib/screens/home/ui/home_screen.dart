@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:flutter_social_demo/screens/home/ui/tabs_scaffold.dart';
 
 class HomeScreen extends StatefulWidget {

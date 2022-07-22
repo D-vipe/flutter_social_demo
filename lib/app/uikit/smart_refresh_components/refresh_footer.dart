@@ -1,10 +1,15 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+// Project imports:
 import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
 import 'package:flutter_social_demo/app/constants/errors_const.dart';
 import 'package:flutter_social_demo/app/theme/text_styles.dart';
 import 'package:flutter_social_demo/app/uikit/loader.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class LoadMoreFooter extends StatelessWidget {
   const LoadMoreFooter({Key? key}) : super(key: key);

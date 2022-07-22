@@ -1,6 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+// Project imports:
 import 'package:flutter_social_demo/app/config/app_router.dart';
 import 'package:flutter_social_demo/app/theme/theme.dart';
 import 'package:flutter_social_demo/services/caching_service.dart';

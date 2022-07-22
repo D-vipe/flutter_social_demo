@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:flutter_social_demo/repository/models/album_model.dart';
 import 'package:flutter_social_demo/repository/models/post_model.dart';
 import 'package:flutter_social_demo/repository/models/profile_model.dart';

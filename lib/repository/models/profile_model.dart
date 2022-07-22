@@ -1,8 +1,11 @@
+// Package imports:
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
 import 'package:flutter_social_demo/repository/models/album_model.dart';
 import 'package:flutter_social_demo/repository/models/post_model.dart';
 import 'package:flutter_social_demo/repository/models/user_model.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'profile_model.g.dart';
 

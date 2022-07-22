@@ -1,6 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+// Project imports:
 import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
 import 'package:flutter_social_demo/app/constants/errors_const.dart';
@@ -18,7 +24,6 @@ import 'package:flutter_social_demo/repository/models/user_model.dart';
 import 'package:flutter_social_demo/screens/albums/ui/widgets/album_card.dart';
 import 'package:flutter_social_demo/screens/posts/ui/widgets/post_card.dart';
 import 'package:flutter_social_demo/screens/profile/bloc/profile_cubit.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ProfileScreen extends StatelessWidget {
   final Function onChangedTab;

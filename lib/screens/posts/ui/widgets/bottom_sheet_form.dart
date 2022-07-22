@@ -1,5 +1,10 @@
-import 'package:email_validator/email_validator.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:email_validator/email_validator.dart';
+
+// Project imports:
 import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
 import 'package:flutter_social_demo/app/theme/text_styles.dart';
