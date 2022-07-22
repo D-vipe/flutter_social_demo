@@ -9,6 +9,8 @@ class AppDictionary {
   static const String website = 'Сайт';
   static const String address = 'Адрес';
   static const String company = 'Компания';
+  static const String comment = 'Коментарий';
+  static const String send = 'Отправить';
   static const String bsTitle = 'Слоган';
   static const String catchPhrase = 'Девиз';
   static const String userName = 'Псевдоним';
@@ -16,6 +18,8 @@ class AppDictionary {
   static const String commentsTitle = 'Коментарии';
   static const String recentPost = 'Мои записи';
   static const String recentAlbums = 'Мои альбомы';
+  static const String fillInput = 'Заполните это поле';
+  static const String wrongEmail = 'Неверный формат';
 }
 
 class AppBarTitles {

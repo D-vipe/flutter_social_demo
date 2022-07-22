@@ -38,39 +38,39 @@ class DioExceptions implements Exception {
   DioExceptions.fromDioError(DioError dioError) {
     switch (dioError.type) {
       case DioErrorType.cancel:
-        message = "Запрос от сервера был отменен";
+        message = 'Запрос от сервера был отменен';
         break;
       case DioErrorType.connectTimeout:
-        message = "Ожидание соединения от сервера было превышено";
+        message = 'Ожидание соединения от сервера было превышено';
         break;
       case DioErrorType.other:
-        message = "Проблемы с интернетом";
+        message = 'Проблемы с интернетом';
         break;
       case DioErrorType.receiveTimeout:
-        message = "Ожидание приема данных  от сервера было превышено";
+        message = 'Ожидание приема данных  от сервера было превышено';
         break;
       case DioErrorType.response:
         message = _handleError(
             dioError.response!.statusCode!, dioError.response!.data);
         break;
       case DioErrorType.sendTimeout:
-        message = "Ожидание соединения от сервера было превышено";
+        message = 'Ожидание соединения от сервера было превышено';
         break;
 
       default:
-        message = "Что то пошло не так";
+        message = 'Что то пошло не так';
         break;
     }
   }
 
-  String message = "Что то пошло не так";
+  String message = 'Что то пошло не так';
 
   String _handleError(int statusCode, dynamic error) {
     switch (statusCode) {
       case 400:
         return 'Bad request';
       case 404:
-        return error["message"];
+        return error['message'];
       case 500:
         return 'Internal server error';
       default:

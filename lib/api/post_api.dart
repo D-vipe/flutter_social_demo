@@ -56,6 +56,29 @@ class PostsApi {
     }
   }
 
+  Future<Comment?> addComment(
+      {required int postId,
+      required String name,
+      required String email,
+      required String body}) async {
+    try {
+      var response = await _dio.post(
+        _baseUrl + _commentsPath,
+        data: {
+          'postId': postId,
+          'name': name,
+          'email': email,
+          'body': body,
+        },
+      );
+      return _parseAddCommentResponse(response);
+    } on ParseException {
+      rethrow;
+    } catch (e) {
+      throw DioExceptions.fromDioError(e as DioError).message;
+    }
+  }
+
   List<Post> _parseListResponse(Response response) {
     List<Post> postList = [];
 
@@ -100,5 +123,19 @@ class PostsApi {
     }
 
     return postData;
+  }
+
+  Comment? _parseAddCommentResponse(Response response) {
+    Comment? data;
+
+    if (response.data != null || response.data.isNotEmpty) {
+      try {
+        data = Comment.fromJson(response.data);
+      } catch (e) {
+        throw ParseException();
+      }
+    }
+
+    return data;
   }
 }

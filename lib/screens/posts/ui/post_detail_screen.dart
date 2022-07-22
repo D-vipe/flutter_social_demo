@@ -12,6 +12,7 @@ import 'package:flutter_social_demo/app/uikit/loader_page.dart';
 import 'package:flutter_social_demo/repository/models/comment_model.dart';
 import 'package:flutter_social_demo/repository/models/post_model.dart';
 import 'package:flutter_social_demo/screens/posts/bloc/posts_cubit.dart';
+import 'package:flutter_social_demo/screens/posts/ui/widgets/bottom_sheet_form.dart';
 
 class PostDetailScreen extends StatelessWidget {
   final DetailPageArgument arguments;
@@ -37,6 +38,66 @@ class PostDetailView extends StatefulWidget {
 }
 
 class _PostDetailViewState extends State<PostDetailView> {
+  _showForm() {
+    return showModalBottomSheet<void>(
+        isScrollControlled: true,
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+        ),
+        builder: (BuildContext context) {
+          return Padding(
+            padding: MediaQuery.of(context).viewInsets,
+            child: Container(
+              height: 460,
+              decoration: const BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(12),
+                    topLeft: Radius.circular(12),
+                  )),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    width: MediaQuery.of(context).size.width,
+                    height: 40,
+                    decoration: const BoxDecoration(
+                      color: AppColors.mainTheme,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(12),
+                        topLeft: Radius.circular(12),
+                      ),
+                    ),
+                    child: Text(
+                      AppDictionary.comment,
+                      style: AppTextStyle.comforta14W400
+                          .apply(color: AppColors.white),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  BottomSheetForm(
+                    sendForm: sendForm,
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  void sendForm(String name, String email, String comment) {
+    context.read<PostsCubit>().addComment(
+          postId: widget.id,
+          name: name,
+          email: email,
+          comment: comment,
+        );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -61,6 +122,7 @@ class _PostDetailViewState extends State<PostDetailView> {
       }
 
       return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           toolbarHeight: 50,
           centerTitle: true,
@@ -77,6 +139,13 @@ class _PostDetailViewState extends State<PostDetailView> {
               color: AppColors.white,
             ),
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            _showForm();
+          },
+          backgroundColor: AppColors.mainTheme,
+          child: const Icon(Icons.add),
         ),
         backgroundColor: AppColors.white,
         extendBody: true,

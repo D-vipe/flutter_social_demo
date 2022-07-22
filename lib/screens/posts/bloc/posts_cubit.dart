@@ -55,4 +55,20 @@ class PostsCubit extends Cubit<PostsState> {
       emit(PostError(error: e.toString()));
     }
   }
+
+  Future<void> addComment(
+      {required int postId,
+      required String name,
+      required String email,
+      required String comment}) async {
+    try {
+      emit(PostRequested());
+
+      Post post = await _repository.addComment(
+          postId: postId, name: name, email: email, body: comment);
+      emit(PostDetailReceived(data: post));
+    } catch (e) {
+      emit(PostError(error: e.toString()));
+    }
+  }
 }

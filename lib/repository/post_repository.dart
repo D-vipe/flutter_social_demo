@@ -81,4 +81,31 @@ class PostRepository {
       rethrow;
     }
   }
+
+  Future<Post> addComment(
+      {required int postId,
+      required String name,
+      required String email,
+      required String body}) async {
+    try {
+      Comment? newComment;
+      Post? post = await HiveService.getPost(id: postId);
+
+      newComment = await _postsApi.addComment(
+          postId: postId, name: name, email: email, body: body);
+
+      if (newComment != null) {
+        if (post != null && post.comments != null) {
+          post.comments!.add(newComment);
+          post.save();
+        }
+      }
+
+      return post!;
+    } on ParseException {
+      rethrow;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
