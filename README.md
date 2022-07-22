@@ -12,3 +12,6 @@ Caching is organized via Hive package.
 Caching time - 30 mins
 Each object or List of objects are cached in case if 30 mins after last caching process have elapsed  
 Refresh screens are bound to cached objects. It is possible to set refresh function make api calls despite cached state
+
+#### SmartRefresher
+smart_refresher package throws warnings due to new flutter version
