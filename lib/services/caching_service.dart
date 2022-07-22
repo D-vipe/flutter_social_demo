@@ -1,3 +1,4 @@
+import 'package:flutter_social_demo/repository/models/album_model.dart';
 import 'package:flutter_social_demo/repository/models/post_model.dart';
 import 'package:flutter_social_demo/repository/models/user_model.dart';
 import 'package:flutter_social_demo/services/hive_service.dart';
@@ -45,7 +46,19 @@ class CachingService {
     HiveService.addPosts(data: list);
   }
 
+  static void cacheAlbumList({required List<Album> list}) {
+    HiveService.addAlbums(data: list);
+  }
+
   static List<User> getCachedUsers() {
     return HiveService.getUsers();
+  }
+
+  static List<Post> getCachedPost() {
+    return HiveService.getPosts();
+  }
+
+  static List<Album> getCachedAlbums() {
+    return HiveService.getAlbums();
   }
 }

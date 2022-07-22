@@ -2,7 +2,6 @@ import 'package:flutter_social_demo/api/user_api.dart';
 import 'package:flutter_social_demo/app/config/exceptions.dart';
 import 'package:flutter_social_demo/repository/models/user_model.dart';
 import 'package:flutter_social_demo/services/caching_service.dart';
-import 'package:flutter_social_demo/services/hive_service.dart';
 import 'package:flutter_social_demo/services/shared_preferences.dart';
 
 class UserRepository {
@@ -16,7 +15,7 @@ class UserRepository {
       if (!CachingService.needToSendRequest(
           key: PreferenceKey.userListCacheTime)) {
         // check if Hive is not empty
-        data = HiveService.getUsers();
+        data = CachingService.getCachedUsers();
         needToFetch = data.isEmpty;
       }
 

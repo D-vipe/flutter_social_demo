@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_social_demo/app/config/route_arguments/route_arguments.dart';
+import 'package:flutter_social_demo/app/config/route_arguments/detail_page_arguments.dart';
 import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
 import 'package:flutter_social_demo/app/constants/errors_const.dart';
@@ -14,7 +14,7 @@ import 'package:flutter_social_demo/repository/models/post_model.dart';
 import 'package:flutter_social_demo/screens/posts/bloc/posts_cubit.dart';
 
 class PostDetailScreen extends StatelessWidget {
-  final PostDetailArguments arguments;
+  final DetailPageArgument arguments;
   const PostDetailScreen({Key? key, required this.arguments}) : super(key: key);
 
   @override

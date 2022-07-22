@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_social_demo/app/config/exceptions.dart';
 import 'package:flutter_social_demo/app/constants/errors_const.dart';
-import 'package:flutter_social_demo/repository/models/comment_model.dart';
 import 'package:flutter_social_demo/repository/models/post_model.dart';
 import 'package:flutter_social_demo/repository/post_repository.dart';
 
@@ -47,13 +46,6 @@ class PostsCubit extends Cubit<PostsState> {
       Post? data = await _repository.getPostDetail(postId: id);
       if (data == null) {
         emit(PostError(error: GeneralErrors.emptyData));
-      } else {
-        if (data.comments == null || data.comments!.isEmpty) {
-          List<Comment> comments =
-              await _repository.getPostComments(postId: id);
-          data.comments = comments;
-          data.save();
-        }
       }
 
       emit(PostDetailReceived(data: data));

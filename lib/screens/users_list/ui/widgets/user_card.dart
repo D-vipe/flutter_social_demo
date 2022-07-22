@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
+import 'package:flutter_social_demo/app/theme/text_styles.dart';
 import 'package:flutter_social_demo/app/uikit/card_row.dart';
 
 class UserCard extends StatelessWidget {
@@ -29,18 +30,18 @@ class UserCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CardRow(
-                value: userName,
-                title: AppDictionary.userName,
-                reduceWidth: 150,
-              ),
+                  value: userName,
+                  title: AppDictionary.userName,
+                  reduceWidth: 150,
+                  valueStyle: AppTextStyle.comforta14W400),
               const SizedBox(
                 height: 10,
               ),
               CardRow(
-                title: AppDictionary.name,
-                value: name,
-                reduceWidth: 94,
-              )
+                  title: AppDictionary.name,
+                  value: name,
+                  reduceWidth: 94,
+                  valueStyle: AppTextStyle.comforta14W400)
             ],
           ),
         ),

@@ -3,6 +3,7 @@ import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
 import 'package:flutter_social_demo/app/theme/text_styles.dart';
 import 'package:flutter_social_demo/resources/resources.dart';
+import 'package:flutter_social_demo/screens/albums/ui/albums_list_screen.dart';
 import 'package:flutter_social_demo/screens/posts/ui/posts_list_screen.dart';
 import 'package:flutter_social_demo/screens/users_list/ui/users_list_screen.dart';
 import 'package:flutter_svg/svg.dart';
@@ -57,11 +58,7 @@ class _TabsScaffoldState extends State<TabsScaffold> {
     tabs = [
       const UsersListScreen(),
       const PostsListScreen(),
-      Container(
-        child: const Center(
-          child: Text('Gallery'),
-        ),
-      ),
+      const AlbumsListScreen(),
       Container(
         child: const Center(
           child: Text('Profile'),

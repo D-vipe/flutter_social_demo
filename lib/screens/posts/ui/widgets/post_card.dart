@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_social_demo/app/config/route_arguments/post_detail_arguments.dart';
+import 'package:flutter_social_demo/app/config/route_arguments/detail_page_arguments.dart';
 import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/constants/routes_const.dart';
 import 'package:flutter_social_demo/app/theme/text_styles.dart';
@@ -19,7 +19,7 @@ class PostCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.of(context).pushNamed(Routes.detailPost,
-          arguments: PostDetailArguments(
+          arguments: DetailPageArgument(
             id: postId,
           )),
       child: Container(

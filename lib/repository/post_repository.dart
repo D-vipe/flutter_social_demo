@@ -17,7 +17,7 @@ class PostRepository {
       if (!CachingService.needToSendRequest(
           key: PreferenceKey.postListCacheTime)) {
         // check if Hive is not empty
-        data = HiveService.getPosts();
+        data = CachingService.getCachedPost();
         needToFetch = data.isEmpty;
       }
 
@@ -46,6 +46,19 @@ class PostRepository {
       data = await HiveService.getPost(id: postId);
       // if data is null
       data ??= await _postsApi.getPostData(id: postId);
+
+      if (data?.comments == null || data!.comments!.isEmpty) {
+        // get photos for current album if for some reason
+        // we try to access detail with no cached data
+
+        if (data != null) {
+          List<Comment> postComments = await getPostComments(postId: data.id);
+          data.comments = postComments;
+
+          // save received object to HiveBox
+          data.save();
+        }
+      }
 
       return data;
     } on ParseException {

@@ -1,8 +1,10 @@
 // Package imports:
 import 'package:flutter_social_demo/repository/models/address_model.dart';
+import 'package:flutter_social_demo/repository/models/album_model.dart';
 import 'package:flutter_social_demo/repository/models/comment_model.dart';
 import 'package:flutter_social_demo/repository/models/company_model.dart';
 import 'package:flutter_social_demo/repository/models/geo_location_model.dart';
+import 'package:flutter_social_demo/repository/models/photo_model.dart';
 import 'package:flutter_social_demo/repository/models/post_model.dart';
 import 'package:flutter_social_demo/repository/models/user_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -11,6 +13,7 @@ class HiveService {
   static late Box users;
   static late Box albums;
   static late Box posts;
+  static late Box profile;
 
   static Future<void> init() async {
     await Hive.initFlutter();
@@ -20,9 +23,14 @@ class HiveService {
     Hive.registerAdapter(GeoLocationAdapter());
     Hive.registerAdapter(PostAdapter());
     Hive.registerAdapter(CommentAdapter());
+    Hive.registerAdapter(AlbumAdapter());
+    Hive.registerAdapter(PhotoAdapter());
 
     users = await Hive.openBox<User>('users');
+    // Box for caching authed user data;
+    profile = await Hive.openBox<User>('profile');
     posts = await Hive.openBox<Post>('posts');
+    albums = await Hive.openBox<Album>('albums');
   }
 
   static List<User> getUsers() {
@@ -33,8 +41,18 @@ class HiveService {
     return posts.values.toList() as List<Post>;
   }
 
+  static List<Album> getAlbums() {
+    return albums.values.toList() as List<Album>;
+  }
+
+  // get post by id
   static Future<Post?> getPost({required int id}) async {
     return await posts.get(id);
+  }
+
+  // get album by id
+  static Future<Album?> getAlbum({required int id}) async {
+    return await albums.get(id);
   }
 
   // put all received posts into the box
@@ -44,6 +62,16 @@ class HiveService {
 
     for (var element in data) {
       posts.put(element.id, element);
+    }
+  }
+
+  // put all received albums into the box
+  static Future<void> addAlbums({required List<Album> data}) async {
+    // clear box first
+    await albums.clear();
+
+    for (var element in data) {
+      albums.put(element.id, element);
     }
   }
 

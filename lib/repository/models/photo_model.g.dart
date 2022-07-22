@@ -1,44 +1,44 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'post_model.dart';
+part of 'photo_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class PostAdapter extends TypeAdapter<Post> {
+class PhotoAdapter extends TypeAdapter<Photo> {
   @override
-  final int typeId = 5;
+  final int typeId = 8;
 
   @override
-  Post read(BinaryReader reader) {
+  Photo read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Post(
+    return Photo(
       id: fields[0] as int,
-      userId: fields[1] as int,
+      albumId: fields[1] as int,
       title: fields[2] as String,
-      body: fields[3] as String,
-      comments: (fields[4] as List?)?.cast<Comment>(),
+      url: fields[3] as String,
+      thumbnailUrl: fields[4] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Post obj) {
+  void write(BinaryWriter writer, Photo obj) {
     writer
       ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.userId)
+      ..write(obj.albumId)
       ..writeByte(2)
       ..write(obj.title)
       ..writeByte(3)
-      ..write(obj.body)
+      ..write(obj.url)
       ..writeByte(4)
-      ..write(obj.comments);
+      ..write(obj.thumbnailUrl);
   }
 
   @override
@@ -47,7 +47,7 @@ class PostAdapter extends TypeAdapter<Post> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is PostAdapter &&
+      other is PhotoAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -56,20 +56,18 @@ class PostAdapter extends TypeAdapter<Post> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-Post _$PostFromJson(Map<String, dynamic> json) => Post(
+Photo _$PhotoFromJson(Map<String, dynamic> json) => Photo(
       id: json['id'] as int,
-      userId: json['userId'] as int,
+      albumId: json['albumId'] as int,
       title: json['title'] as String,
-      body: json['body'] as String,
-      comments: (json['comments'] as List<dynamic>?)
-          ?.map((e) => Comment.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      url: json['url'] as String,
+      thumbnailUrl: json['thumbnailUrl'] as String,
     );
 
-Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
+Map<String, dynamic> _$PhotoToJson(Photo instance) => <String, dynamic>{
       'id': instance.id,
-      'userId': instance.userId,
+      'albumId': instance.albumId,
       'title': instance.title,
-      'body': instance.body,
-      'comments': instance.comments,
+      'url': instance.url,
+      'thumbnailUrl': instance.thumbnailUrl,
     };
