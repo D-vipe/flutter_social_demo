@@ -32,6 +32,7 @@ class AlbumCard extends StatelessWidget {
                   fit: BoxFit.cover,
                   imageUrl: thumbnailUrl.toString(),
                   placeholder: (context, url) => const Loader(
+                    color: AppColors.mainTheme,
                     size: 20,
                   ),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
@@ -43,13 +44,14 @@ class AlbumCard extends StatelessWidget {
               child: Container(
                 alignment: Alignment.center,
                 width: (MediaQuery.of(context).size.width / 3) - 6,
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                 height: 30,
                 color: AppColors.black.withOpacity(.4),
                 child: Text(
                   title,
-                  style: AppTextStyle.comforta10W400
-                      .apply(color: AppColors.orange),
+                  style:
+                      AppTextStyle.comforta10W400.apply(color: AppColors.white),
+                  overflow: TextOverflow.fade,
                 ),
               ))
         ],
