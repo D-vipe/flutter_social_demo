@@ -15,3 +15,8 @@ Refresh screens are bound to cached objects. It is possible to set refresh funct
 
 #### SmartRefresher
 smart_refresher package throws warnings due to new flutter version
+
+#### Profile screen
+There are two possible scenarios: 
+1) click on a post's card or album's card leads to relevant detail screen
+2) click on a free from cards zone (block label like 'Мои альбомы' as well) leads to navigating to relevant list screen
