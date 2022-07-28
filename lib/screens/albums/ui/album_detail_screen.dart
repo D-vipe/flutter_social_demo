@@ -71,7 +71,6 @@ class _AlbumDetailViewState extends State<AlbumDetailView> {
         appBar: AppBar(
           toolbarHeight: 50,
           centerTitle: true,
-          // backgroundColor: AppColors.mainTheme,
           title: Text(
             album != null ? album.title : AppDictionary.postDetailTitle,
             style: AppTextStyle.comforta16W400.apply(color: AppColors.white),
@@ -81,11 +80,9 @@ class _AlbumDetailViewState extends State<AlbumDetailView> {
             child: const Icon(
               Icons.chevron_left,
               size: 30,
-              color: AppColors.white,
             ),
           ),
         ),
-        backgroundColor: AppColors.white,
         extendBody: true,
         body: Column(
           children: [

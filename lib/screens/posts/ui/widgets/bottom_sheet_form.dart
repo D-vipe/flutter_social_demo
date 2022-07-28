@@ -83,7 +83,6 @@ class _BottomSheetFormState extends State<BottomSheetForm> {
                         Navigator.of(context).pop();
                       }
                     },
-                    style: OutlinedButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primary),
                     child: Text(
                       AppDictionary.send,
                       style: AppTextStyle.comforta16W400.apply(color: AppColors.white),

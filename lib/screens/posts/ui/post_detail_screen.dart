@@ -48,8 +48,7 @@ class _PostDetailViewState extends State<PostDetailView> {
         isScrollControlled: true,
         context: context,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
         ),
         builder: (BuildContext context) {
           return Padding(
@@ -57,11 +56,11 @@ class _PostDetailViewState extends State<PostDetailView> {
             child: Container(
               height: 460,
               decoration: const BoxDecoration(
-                  color: AppColors.white,
+                  // color: AppColors.white,
                   borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(12),
-                    topLeft: Radius.circular(12),
-                  )),
+                topRight: Radius.circular(12),
+                topLeft: Radius.circular(12),
+              )),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -79,8 +78,7 @@ class _PostDetailViewState extends State<PostDetailView> {
                     ),
                     child: Text(
                       AppDictionary.comment,
-                      style: AppTextStyle.comforta14W400
-                          .apply(color: AppColors.white),
+                      style: AppTextStyle.comforta14W400.apply(color: AppColors.white),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -140,7 +138,6 @@ class _PostDetailViewState extends State<PostDetailView> {
             child: const Icon(
               Icons.chevron_left,
               size: 30,
-              color: AppColors.white,
             ),
           ),
         ),
@@ -148,10 +145,11 @@ class _PostDetailViewState extends State<PostDetailView> {
           onPressed: () {
             _showForm();
           },
-          // backgroundColor: AppColors.mainTheme,
-          child: const Icon(Icons.add),
+          child: const Icon(
+            Icons.add,
+            color: AppColors.white,
+          ),
         ),
-        backgroundColor: AppColors.white,
         extendBody: true,
         body: Column(
           children: [
@@ -169,8 +167,7 @@ class _PostDetailViewState extends State<PostDetailView> {
                                   title: post.title,
                                   comments: post.comments,
                                 )
-                              : const EmptyPage(
-                                  message: GeneralErrors.emptyData)
+                              : const EmptyPage(message: GeneralErrors.emptyData)
                           : Column(
                               children: [
                                 SizedBox(
@@ -227,8 +224,7 @@ class _DetailPostBody extends StatelessWidget {
                 width: MediaQuery.of(context).size.width - 30,
                 child: Text(
                   title,
-                  style: AppTextStyle.comforta18W700
-                      .apply(color: AppColors.orange),
+                  style: AppTextStyle.comforta18W700.apply(color: AppColors.orange),
                   textAlign: TextAlign.center,
                 ),
               )
@@ -300,8 +296,7 @@ class _CommentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment:
-          (index % 2 == 0) ? MainAxisAlignment.start : MainAxisAlignment.end,
+      mainAxisAlignment: (index % 2 == 0) ? MainAxisAlignment.start : MainAxisAlignment.end,
       children: [
         Container(
           margin: const EdgeInsets.only(bottom: 15),
@@ -316,9 +311,7 @@ class _CommentCard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
               child: Column(
-                crossAxisAlignment: (index % 2 == 0)
-                    ? CrossAxisAlignment.start
-                    : CrossAxisAlignment.end,
+                crossAxisAlignment: (index % 2 == 0) ? CrossAxisAlignment.start : CrossAxisAlignment.end,
                 children: [
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
