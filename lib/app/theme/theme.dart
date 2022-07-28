@@ -24,10 +24,15 @@ class AppTheme {
           centerTitle: true,
           titleTextStyle: TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w500, fontFamily: 'Manrope'),
         ),
+        bottomAppBarTheme: const BottomAppBarTheme(
+          color: AppColors.white,
+          elevation: 3,
+          shape: CircularNotchedRectangle(),
+        ),
       );
 
   static ThemeData darkTheme() => ThemeData(
-        colorScheme: const ColorScheme(
+        colorScheme: ColorScheme(
           brightness: Brightness.dark,
           primary: AppColors.amber,
           onPrimary: AppColors.amber,
@@ -35,8 +40,8 @@ class AppTheme {
           onSecondary: AppColors.red,
           error: AppColors.errorRed,
           onError: AppColors.errorRed,
-          background: AppColors.white,
-          onBackground: AppColors.white,
+          background: AppColors.black.withOpacity(.5),
+          onBackground: AppColors.black.withOpacity(.5),
           surface: AppColors.white,
           onSurface: AppColors.white,
         ),
@@ -44,6 +49,11 @@ class AppTheme {
           backgroundColor: AppColors.amber,
           centerTitle: true,
           titleTextStyle: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.w500, fontFamily: 'Manrope'),
+        ),
+        bottomAppBarTheme: const BottomAppBarTheme(
+          color: AppColors.amber,
+          elevation: 3,
+          shape: CircularNotchedRectangle(),
         ),
       );
 }

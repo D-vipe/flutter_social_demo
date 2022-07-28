@@ -35,6 +35,7 @@ class _TabsScaffoldState extends State<TabsScaffold> {
     AppBarTitles.userGallery,
   ];
   int index = 0;
+  final bool _light = false;
 
   @override
   void initState() {
@@ -79,12 +80,11 @@ class _TabsScaffoldState extends State<TabsScaffold> {
               // backgroundColor: AppColors.mainTheme,
               title: Text(
                 appBarTitles[index],
-                style:
-                    AppTextStyle.comforta16W400.apply(color: AppColors.white),
+                style: AppTextStyle.comforta16W400.apply(color: AppColors.white),
               ),
             )
           : null,
-      backgroundColor: AppColors.white,
+      // backgroundColor: _light ? AppColors.white : Theme.of(context).colorScheme.background,
       extendBody: true,
       body: PageView(
         controller: _pageController,
@@ -92,9 +92,6 @@ class _TabsScaffoldState extends State<TabsScaffold> {
         children: tabs,
       ),
       bottomNavigationBar: BottomAppBar(
-        elevation: 3,
-        // color: AppColors.mainTheme,
-        shape: const CircularNotchedRectangle(),
         notchMargin: 8,
         child: Padding(
           padding: const EdgeInsets.only(left: 12, right: 12, top: 8),
