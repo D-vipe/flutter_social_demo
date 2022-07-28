@@ -71,7 +71,7 @@ class _PostDetailViewState extends State<PostDetailView> {
                     width: MediaQuery.of(context).size.width,
                     height: 40,
                     decoration: const BoxDecoration(
-                      color: AppColors.mainTheme,
+                      // color: AppColors.mainTheme,
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(12),
                         topLeft: Radius.circular(12),
@@ -131,7 +131,6 @@ class _PostDetailViewState extends State<PostDetailView> {
         appBar: AppBar(
           toolbarHeight: 50,
           centerTitle: true,
-          backgroundColor: AppColors.mainTheme,
           title: Text(
             post != null ? post.title : AppDictionary.postDetailTitle,
             style: AppTextStyle.comforta16W400.apply(color: AppColors.white),
@@ -149,7 +148,7 @@ class _PostDetailViewState extends State<PostDetailView> {
           onPressed: () {
             _showForm();
           },
-          backgroundColor: AppColors.mainTheme,
+          // backgroundColor: AppColors.mainTheme,
           child: const Icon(Icons.add),
         ),
         backgroundColor: AppColors.white,
@@ -309,7 +308,7 @@ class _CommentCard extends StatelessWidget {
           width: MediaQuery.of(context).size.width - 50,
           child: Card(
             margin: EdgeInsets.zero,
-            shadowColor: AppColors.mainTheme,
+            // shadowColor: AppColors.mainTheme,
             elevation: 5,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),

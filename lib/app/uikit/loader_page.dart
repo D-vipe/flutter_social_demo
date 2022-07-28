@@ -20,12 +20,12 @@ class LoaderPage extends StatelessWidget {
             color: AppColors.black.withOpacity(.1),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Loader(
                   size: 40,
-                  color: AppColors.mainTheme,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 120,
                 ),
               ],

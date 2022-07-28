@@ -76,7 +76,7 @@ class _TabsScaffoldState extends State<TabsScaffold> {
           ? AppBar(
               toolbarHeight: 50,
               centerTitle: true,
-              backgroundColor: AppColors.mainTheme,
+              // backgroundColor: AppColors.mainTheme,
               title: Text(
                 appBarTitles[index],
                 style:
@@ -93,7 +93,7 @@ class _TabsScaffoldState extends State<TabsScaffold> {
       ),
       bottomNavigationBar: BottomAppBar(
         elevation: 3,
-        color: AppColors.mainTheme,
+        // color: AppColors.mainTheme,
         shape: const CircularNotchedRectangle(),
         notchMargin: 8,
         child: Padding(

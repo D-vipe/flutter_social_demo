@@ -27,19 +27,26 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final bool _light = false;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Demo Auth App',
+      title: 'Social App',
       locale: const Locale('ru'),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
       ],
-      theme: AppTheme.baseTheme(),
+      theme: _light ? AppTheme.lightTheme() : AppTheme.darkTheme(),
       onGenerateRoute: AppRouter.onGenerateRoute,
       initialRoute: 'home',
     );

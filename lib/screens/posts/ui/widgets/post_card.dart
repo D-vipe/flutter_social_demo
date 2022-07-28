@@ -31,7 +31,7 @@ class PostCard extends StatelessWidget {
         width: width,
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         child: Card(
-          shadowColor: AppColors.mainTheme,
+          shadowColor: Theme.of(context).colorScheme.primary,
           elevation: 5,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -44,8 +44,7 @@ class PostCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: AppTextStyle.comforta16W600
-                      .apply(color: AppColors.orange),
+                  style: AppTextStyle.comforta16W600.apply(color: AppColors.orange),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
