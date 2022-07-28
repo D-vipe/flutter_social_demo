@@ -1,18 +1,15 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:flutter_svg/svg.dart';
-
 // Project imports:
 import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
 import 'package:flutter_social_demo/app/theme/text_styles.dart';
-import 'package:flutter_social_demo/resources/resources.dart';
 import 'package:flutter_social_demo/screens/albums/ui/albums_list_screen.dart';
 import 'package:flutter_social_demo/screens/posts/ui/posts_list_screen.dart';
 import 'package:flutter_social_demo/screens/profile/ui/profile_screen.dart';
 import 'package:flutter_social_demo/screens/users_list/ui/users_list_screen.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class TabsScaffold extends StatefulWidget {
   final int? requestedIndex;
@@ -91,54 +88,37 @@ class _TabsScaffoldState extends State<TabsScaffold> {
         physics: const NeverScrollableScrollPhysics(),
         children: tabs,
       ),
-      bottomNavigationBar: BottomAppBar(
-        notchMargin: 8,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 12, right: 12, top: 8),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              IconButton(
-                icon: SvgPicture.asset(
-                  AppIcons.usersList,
-                  color: index == 0 ? AppColors.black : AppColors.white,
-                  width: 25,
-                ),
-                splashRadius: .1,
-                onPressed: () => onChangedTab(0),
-              ),
-              IconButton(
-                icon: SvgPicture.asset(
-                  AppIcons.posts,
-                  color: index == 1 ? AppColors.black : AppColors.white,
-                  width: 25,
-                ),
-                splashRadius: .1,
-                onPressed: () => onChangedTab(1),
-              ),
-              IconButton(
-                icon: SvgPicture.asset(
-                  AppIcons.gallery,
-                  color: index == 2 ? AppColors.black : AppColors.white,
-                  width: 25,
-                ),
-                splashRadius: .1,
-                onPressed: () => onChangedTab(2),
-              ),
-              IconButton(
-                icon: SvgPicture.asset(
-                  AppIcons.profile,
-                  color: index == 3 ? AppColors.black : AppColors.white,
-                  width: 25,
-                ),
-                splashRadius: .1,
-                onPressed: () => onChangedTab(3),
-              ),
-            ],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: index,
+        onTap: (idx) => onChangedTab(idx),
+        // iconSize: 35,
+        fixedColor: Theme.of(context).colorScheme.secondary,
+        items: const [
+          BottomNavigationBarItem(
+            label: BottomNavigationTitle.userList,
+            icon: Icon(
+              MdiIcons.viewList,
+            ),
           ),
-        ),
+          BottomNavigationBarItem(
+            label: BottomNavigationTitle.userPosts,
+            icon: Icon(
+              MdiIcons.post,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: BottomNavigationTitle.userGallery,
+            icon: Icon(
+              MdiIcons.viewGallery,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: BottomNavigationTitle.userProfile,
+            icon: Icon(
+              MdiIcons.account,
+            ),
+          ),
+        ],
       ),
     );
   }

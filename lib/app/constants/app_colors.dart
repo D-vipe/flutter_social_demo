@@ -5,6 +5,8 @@ class AppColors {
   static const Color white = Color.fromRGBO(255, 255, 255, 1);
   static const Color transparent = Color.fromRGBO(255, 255, 255, 0);
   static const Color black = Color.fromRGBO(0, 0, 0, 1);
+  static const Color dark = Color.fromRGBO(31, 31, 31, 1);
+  static const Color lightDark = Color.fromRGBO(65, 65, 65, 1);
   static const Color markBlue = Color.fromRGBO(185, 203, 229, 1);
   static const Color blue = Color.fromRGBO(42, 186, 243, 1);
   static const Color errorRed = Color.fromRGBO(255, 75, 107, 1);

@@ -32,28 +32,44 @@ class AppTheme {
       );
 
   static ThemeData darkTheme() => ThemeData(
-        colorScheme: ColorScheme(
+        canvasColor: AppColors.dark,
+        colorScheme: const ColorScheme(
           brightness: Brightness.dark,
           primary: AppColors.amber,
           onPrimary: AppColors.amber,
-          secondary: AppColors.red,
-          onSecondary: AppColors.red,
+          secondary: AppColors.orange,
+          onSecondary: AppColors.orange,
           error: AppColors.errorRed,
           onError: AppColors.errorRed,
-          background: AppColors.black.withOpacity(.5),
-          onBackground: AppColors.black.withOpacity(.5),
+          background: AppColors.lightDark,
+          onBackground: AppColors.dark,
           surface: AppColors.white,
           onSurface: AppColors.white,
         ),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: AppColors.amber,
+        appBarTheme: AppBarTheme(
+          backgroundColor: AppColors.black.withOpacity(.1),
           centerTitle: true,
-          titleTextStyle: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.w500, fontFamily: 'Manrope'),
+          titleTextStyle: const TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.w500, fontFamily: 'Manrope'),
         ),
         bottomAppBarTheme: const BottomAppBarTheme(
-          color: AppColors.amber,
+          // color: AppColors.amber,
           elevation: 3,
           shape: CircularNotchedRectangle(),
+        ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: AppColors.dark,
+          elevation: 3,
+          unselectedIconTheme: IconThemeData(
+            color: AppColors.white,
+            size: 25,
+          ),
+          selectedIconTheme: IconThemeData(
+            color: AppColors.orange,
+            size: 35,
+          ),
+          showUnselectedLabels: false,
+          unselectedLabelStyle: TextStyle(color: AppColors.white),
+          selectedLabelStyle: TextStyle(color: AppColors.orange),
         ),
       );
 }

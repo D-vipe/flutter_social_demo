@@ -28,3 +28,10 @@ class AppBarTitles {
   static const String userGallery = 'Мои альбомы';
   static const String userProfile = 'Профиль';
 }
+
+class BottomNavigationTitle {
+  static const String userList = 'Пользователи';
+  static const String userPosts = 'Записи';
+  static const String userGallery = 'Альбомы';
+  static const String userProfile = 'Профиль';
+}
