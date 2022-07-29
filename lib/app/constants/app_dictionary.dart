@@ -20,6 +20,7 @@ class AppDictionary {
   static const String recentAlbums = 'Мои альбомы';
   static const String fillInput = 'Заполните это поле';
   static const String wrongEmail = 'Неверный формат';
+  static const String settingsTitle = 'Настройки';
 }
 
 class AppBarTitles {

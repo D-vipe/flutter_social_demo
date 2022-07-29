@@ -23,7 +23,8 @@ class CustomInput extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         floatingLabelStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-        border: const OutlineInputBorder(),
+        border: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.onBackground, width: 1)),
+        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.onBackground, width: 1)),
         focusColor: Theme.of(context).colorScheme.primary,
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 2),

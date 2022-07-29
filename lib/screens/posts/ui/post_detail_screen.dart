@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Project imports:
 import 'package:flutter_social_demo/app/config/route_arguments/detail_page_arguments.dart';
 import 'package:flutter_social_demo/app/constants/app_colors.dart';
+import 'package:flutter_social_demo/app/constants/app_decorations.dart';
 import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
 import 'package:flutter_social_demo/app/constants/errors_const.dart';
 import 'package:flutter_social_demo/app/theme/text_styles.dart';
@@ -43,7 +44,7 @@ class PostDetailView extends StatefulWidget {
 }
 
 class _PostDetailViewState extends State<PostDetailView> {
-  _showForm() {
+  Future _showForm() {
     return showModalBottomSheet<void>(
         isScrollControlled: true,
         context: context,
@@ -55,33 +56,31 @@ class _PostDetailViewState extends State<PostDetailView> {
             padding: MediaQuery.of(context).viewInsets,
             child: Container(
               height: 460,
-              decoration: const BoxDecoration(
-                  // color: AppColors.white,
-                  borderRadius: BorderRadius.only(
-                topRight: Radius.circular(12),
-                topLeft: Radius.circular(12),
-              )),
+              decoration: AppDecorations.roundedBox,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
+                    margin: const EdgeInsets.only(top: 5),
+                    width: 40,
+                    decoration: AppDecorations.roundedBox.copyWith(color: Theme.of(context).colorScheme.onBackground),
+                    height: 1,
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width,
                     height: 40,
-                    decoration: const BoxDecoration(
-                      // color: AppColors.mainTheme,
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(12),
-                        topLeft: Radius.circular(12),
-                      ),
-                    ),
+                    decoration: AppDecorations.roundedBox,
                     child: Text(
                       AppDictionary.comment,
-                      style: AppTextStyle.comforta14W400.apply(color: AppColors.white),
+                      style: AppTextStyle.comforta14W400.apply(color: Theme.of(context).colorScheme.onBackground),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   BottomSheetForm(
                     sendForm: sendForm,
                   ),
