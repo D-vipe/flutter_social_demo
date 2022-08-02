@@ -1,7 +1,15 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 // Project imports:
+import 'package:flutter_social_demo/app/constants/errors_const.dart';
+import 'package:flutter_social_demo/repository/models/profile_model.dart';
+import 'package:flutter_social_demo/screens/home/bloc/init_cubit.dart';
+import 'package:flutter_social_demo/screens/home/ui/home_error.dart';
+import 'package:flutter_social_demo/screens/home/ui/home_loading.dart';
 import 'package:flutter_social_demo/screens/home/ui/tabs_scaffold.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     requestedIndex = widget.requestedIndex ?? 0;
+    context.read<InitialCubit>().getInitialData();
   }
 
   Future<bool> _onWillPop() async {
@@ -36,8 +45,28 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onWillPop,
-      child: TabsScaffold(
-        requestedIndex: requestedIndex,
+      child: BlocBuilder<InitialCubit, InitialState>(
+        builder: (context, state) {
+          final bool receivedState = state is InitialReceived;
+          final bool loadingState = state is InitialRequested;
+          String errorMessage = '';
+          Profile? profile;
+
+          if (receivedState) {
+            profile = state.data;
+          }
+
+          return loadingState
+              ? const HomeLoadingScreen()
+              : receivedState
+                  ? profile != null
+                      ? TabsScaffold(
+                          profile: profile,
+                          requestedIndex: requestedIndex,
+                        )
+                      : const HomeErrorScreen(message: GeneralErrors.emptyUser)
+                  : HomeErrorScreen(message: errorMessage);
+        },
       ),
     );
   }

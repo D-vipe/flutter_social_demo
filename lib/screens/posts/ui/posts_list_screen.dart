@@ -90,7 +90,7 @@ class _PostsListViewState extends State<PostsListView>
                             body: posts[i].body,
                           ),
                           itemCount: posts.length,
-                          padding: const EdgeInsets.only(bottom: 95),
+                          padding: const EdgeInsets.only(bottom: 115),
                         )
                       : const EmptyPage(
                           message: GeneralErrors.emptyUsers,
