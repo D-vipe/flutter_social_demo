@@ -8,6 +8,7 @@ enum PreferenceKey {
   albumListCacheTime,
   postListCacheTime,
   profileCacheTime,
+  lightTheme,
 }
 
 class SharedStorageService {
@@ -22,11 +23,23 @@ class SharedStorageService {
     return await _prefs.setString(key.toString(), value);
   }
 
+  static Future<bool> setBool(PreferenceKey key, bool value) async {
+    return await _prefs.setBool(key.toString(), value);
+  }
+
   static String getString(PreferenceKey key, [String defValue = '']) {
     return _prefs.getString(key.toString()) ?? defValue;
   }
 
+  static bool? getBool(PreferenceKey key) {
+    return _prefs.getBool(key.toString());
+  }
+
   static Future<bool> clear() async {
     return await _prefs.clear();
+  }
+
+  static Future<bool> remove(PreferenceKey key) async {
+    return await _prefs.remove(key.toString());
   }
 }

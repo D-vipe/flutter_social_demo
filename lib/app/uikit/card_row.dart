@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/theme/text_styles.dart';
 
 class CardRow extends StatelessWidget {
@@ -27,7 +26,8 @@ class CardRow extends StatelessWidget {
       children: [
         Text(
           '$title: ',
-          style: AppTextStyle.comforta14W400.apply(color: AppColors.orange),
+          style: AppTextStyle.comforta14W400
+              .apply(color: Theme.of(context).colorScheme.primary),
         ),
         const SizedBox(
           width: 8,

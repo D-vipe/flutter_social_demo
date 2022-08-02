@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:flutter_social_demo/app/config/route_arguments/detail_page_arguments.dart';
-import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/constants/app_decorations.dart';
 import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
 import 'package:flutter_social_demo/app/constants/errors_const.dart';
@@ -49,7 +48,8 @@ class _PostDetailViewState extends State<PostDetailView> {
         isScrollControlled: true,
         context: context,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(12), topRight: Radius.circular(12)),
         ),
         builder: (BuildContext context) {
           return Padding(
@@ -64,7 +64,8 @@ class _PostDetailViewState extends State<PostDetailView> {
                   Container(
                     margin: const EdgeInsets.only(top: 5),
                     width: 40,
-                    decoration: AppDecorations.roundedBox.copyWith(color: Theme.of(context).colorScheme.onBackground),
+                    decoration: AppDecorations.roundedBox.copyWith(
+                        color: Theme.of(context).colorScheme.onBackground),
                     height: 1,
                   ),
                   const SizedBox(
@@ -77,7 +78,8 @@ class _PostDetailViewState extends State<PostDetailView> {
                     decoration: AppDecorations.roundedBox,
                     child: Text(
                       AppDictionary.comment,
-                      style: AppTextStyle.comforta14W400.apply(color: Theme.of(context).colorScheme.onBackground),
+                      style: AppTextStyle.comforta16W600.apply(
+                          color: Theme.of(context).colorScheme.onBackground),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -130,7 +132,6 @@ class _PostDetailViewState extends State<PostDetailView> {
           centerTitle: true,
           title: Text(
             post != null ? post.title : AppDictionary.postDetailTitle,
-            style: AppTextStyle.comforta16W400.apply(color: AppColors.white),
           ),
           leading: GestureDetector(
             onTap: () => Navigator.of(context).pop(),
@@ -146,7 +147,6 @@ class _PostDetailViewState extends State<PostDetailView> {
           },
           child: const Icon(
             Icons.add,
-            color: AppColors.white,
           ),
         ),
         extendBody: true,
@@ -166,7 +166,8 @@ class _PostDetailViewState extends State<PostDetailView> {
                                   title: post.title,
                                   comments: post.comments,
                                 )
-                              : const EmptyPage(message: GeneralErrors.emptyData)
+                              : const EmptyPage(
+                                  message: GeneralErrors.emptyData)
                           : Column(
                               children: [
                                 SizedBox(
@@ -223,7 +224,8 @@ class _DetailPostBody extends StatelessWidget {
                 width: MediaQuery.of(context).size.width - 30,
                 child: Text(
                   title,
-                  style: AppTextStyle.comforta18W700.apply(color: AppColors.orange),
+                  style: AppTextStyle.comforta18W700
+                      .apply(color: Theme.of(context).colorScheme.primary),
                   textAlign: TextAlign.center,
                 ),
               )
@@ -258,7 +260,7 @@ class _PostComments extends StatelessWidget {
         Text(
           '${AppDictionary.commentsTitle}: ',
           style: AppTextStyle.comforta14W400.apply(
-            color: AppColors.orange,
+            color: Theme.of(context).colorScheme.primary,
             fontStyle: FontStyle.italic,
             decoration: TextDecoration.underline,
           ),
@@ -295,14 +297,14 @@ class _CommentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: (index % 2 == 0) ? MainAxisAlignment.start : MainAxisAlignment.end,
+      mainAxisAlignment:
+          (index % 2 == 0) ? MainAxisAlignment.start : MainAxisAlignment.end,
       children: [
         Container(
           margin: const EdgeInsets.only(bottom: 15),
           width: MediaQuery.of(context).size.width - 50,
           child: Card(
             margin: EdgeInsets.zero,
-            // shadowColor: AppColors.mainTheme,
             elevation: 5,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -310,7 +312,9 @@ class _CommentCard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
               child: Column(
-                crossAxisAlignment: (index % 2 == 0) ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+                crossAxisAlignment: (index % 2 == 0)
+                    ? CrossAxisAlignment.start
+                    : CrossAxisAlignment.end,
                 children: [
                   SizedBox(
                     width: MediaQuery.of(context).size.width,

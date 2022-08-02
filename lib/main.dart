@@ -11,6 +11,7 @@ import 'package:flutter_social_demo/app/theme/theme.dart';
 import 'package:flutter_social_demo/services/caching_service.dart';
 import 'package:flutter_social_demo/services/hive_service.dart';
 import 'package:flutter_social_demo/services/shared_preferences.dart';
+import 'package:flutter_social_demo/services/theme_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,11 +32,26 @@ class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  _MyAppState createState() => _MyAppState();
+
+  static _MyAppState? of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>();
 }
 
 class _MyAppState extends State<MyApp> {
-  final bool _light = false;
+  bool _light = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _light = ThemeService.getCurrentTheme();
+  }
+
+  void changeTheme(bool lightTheme) {
+    setState(() {
+      _light = lightTheme;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

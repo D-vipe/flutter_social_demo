@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:flutter_social_demo/app/config/route_arguments/detail_page_arguments.dart';
-import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/constants/routes_const.dart';
 import 'package:flutter_social_demo/app/theme/text_styles.dart';
 
@@ -44,7 +43,8 @@ class PostCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: AppTextStyle.comforta16W600.apply(color: AppColors.orange),
+                  style: AppTextStyle.comforta16W600
+                      .apply(color: Theme.of(context).colorScheme.primary),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),

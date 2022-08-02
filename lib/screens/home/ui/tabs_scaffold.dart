@@ -8,6 +8,7 @@ import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
 import 'package:flutter_social_demo/app/theme/text_styles.dart';
 import 'package:flutter_social_demo/repository/models/profile_model.dart';
 import 'package:flutter_social_demo/screens/albums/ui/albums_list_screen.dart';
+import 'package:flutter_social_demo/screens/home/ui/widgets/settings_bottom_sheet.dart';
 import 'package:flutter_social_demo/screens/posts/ui/posts_list_screen.dart';
 import 'package:flutter_social_demo/screens/profile/ui/profile_screen.dart';
 import 'package:flutter_social_demo/screens/users_list/ui/users_list_screen.dart';
@@ -34,7 +35,6 @@ class _TabsScaffoldState extends State<TabsScaffold> {
   List<Widget?> appBarActions = [];
 
   int index = 0;
-  final bool _light = false;
 
   @override
   void initState() {
@@ -96,7 +96,8 @@ class _TabsScaffoldState extends State<TabsScaffold> {
         isScrollControlled: true,
         context: context,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(12), topRight: Radius.circular(12)),
         ),
         builder: (BuildContext context) {
           return Padding(
@@ -111,7 +112,8 @@ class _TabsScaffoldState extends State<TabsScaffold> {
                   Container(
                     margin: const EdgeInsets.only(top: 5),
                     width: 40,
-                    decoration: AppDecorations.roundedBox.copyWith(color: Theme.of(context).colorScheme.onBackground),
+                    decoration: AppDecorations.roundedBox.copyWith(
+                        color: Theme.of(context).colorScheme.onBackground),
                     height: 1,
                   ),
                   const SizedBox(
@@ -124,13 +126,14 @@ class _TabsScaffoldState extends State<TabsScaffold> {
                     decoration: AppDecorations.roundedBox,
                     child: Text(
                       AppDictionary.settingsTitle,
-                      style: AppTextStyle.comforta14W400.apply(color: Theme.of(context).colorScheme.onBackground),
+                      style: AppTextStyle.comforta14W400.apply(
+                          color: Theme.of(context).colorScheme.onBackground),
                     ),
                   ),
                   const SizedBox(height: 10),
-                  // BottomSheetForm(
-                  //   sendForm: sendForm,
-                  // ),
+                  const ProfileSettingsForm(
+                    height: 299,
+                  ),
                 ],
               ),
             ),
@@ -144,10 +147,8 @@ class _TabsScaffoldState extends State<TabsScaffold> {
       appBar: AppBar(
         toolbarHeight: 50,
         centerTitle: true,
-        // backgroundColor: AppColors.mainTheme,
         title: Text(
           appBarTitles[index],
-          style: AppTextStyle.comforta16W400.apply(color: AppColors.white),
         ),
         actions: appBarActions[index] != null ? [appBarActions[index]!] : null,
       ),
@@ -160,7 +161,6 @@ class _TabsScaffoldState extends State<TabsScaffold> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,
         onTap: (idx) => onChangedTab(idx),
-        // iconSize: 35,
         fixedColor: Theme.of(context).colorScheme.secondary,
         items: const [
           BottomNavigationBarItem(

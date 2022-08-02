@@ -6,7 +6,8 @@ import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/uikit/loader.dart';
 
 class LoaderPage extends StatelessWidget {
-  const LoaderPage({Key? key}) : super(key: key);
+  final double? marginTop;
+  const LoaderPage({Key? key, this.marginTop}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,9 @@ class LoaderPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(
+                        height: marginTop ?? 0,
+                      ),
                 Loader(
                   size: 40,
                   color: Theme.of(context).colorScheme.primary,

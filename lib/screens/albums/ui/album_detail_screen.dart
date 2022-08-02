@@ -73,7 +73,6 @@ class _AlbumDetailViewState extends State<AlbumDetailView> {
           centerTitle: true,
           title: Text(
             album != null ? album.title : AppDictionary.postDetailTitle,
-            style: AppTextStyle.comforta16W400.apply(color: AppColors.white),
           ),
           leading: GestureDetector(
             onTap: () => Navigator.of(context).pop(),
