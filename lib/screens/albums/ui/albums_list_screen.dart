@@ -11,7 +11,7 @@ import 'package:flutter_social_demo/app/uikit/empty_result.dart';
 import 'package:flutter_social_demo/app/uikit/error_page.dart';
 import 'package:flutter_social_demo/app/uikit/loader_page.dart';
 import 'package:flutter_social_demo/app/uikit/smart_refresh_components/refresh_header.dart';
-import 'package:flutter_social_demo/repository/models/album_model.dart';
+import 'package:flutter_social_demo/models/album_model.dart';
 import 'package:flutter_social_demo/screens/albums/bloc/albums_cubit.dart';
 import 'package:flutter_social_demo/screens/albums/ui/widgets/album_card.dart';
 

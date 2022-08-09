@@ -12,7 +12,7 @@ import 'package:flutter_social_demo/app/uikit/error_page.dart';
 import 'package:flutter_social_demo/app/uikit/loader_page.dart';
 import 'package:flutter_social_demo/app/uikit/smart_refresh_components/refresh_footer.dart';
 import 'package:flutter_social_demo/app/uikit/smart_refresh_components/refresh_header.dart';
-import 'package:flutter_social_demo/repository/models/user_model.dart';
+import 'package:flutter_social_demo/models/user_model.dart';
 import 'package:flutter_social_demo/screens/users_list/bloc/users_list_cubit.dart';
 import 'package:flutter_social_demo/screens/users_list/ui/widgets/user_card.dart';
 

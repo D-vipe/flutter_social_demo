@@ -1,8 +1,8 @@
 // Project imports:
-import 'package:flutter_social_demo/repository/models/album_model.dart';
-import 'package:flutter_social_demo/repository/models/post_model.dart';
-import 'package:flutter_social_demo/repository/models/profile_model.dart';
-import 'package:flutter_social_demo/repository/models/user_model.dart';
+import 'package:flutter_social_demo/models/album_model.dart';
+import 'package:flutter_social_demo/models/post_model.dart';
+import 'package:flutter_social_demo/models/profile_model.dart';
+import 'package:flutter_social_demo/models/user_model.dart';
 import 'package:flutter_social_demo/services/hive_service.dart';
 import 'package:flutter_social_demo/services/shared_preferences.dart';
 

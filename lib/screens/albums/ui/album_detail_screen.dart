@@ -16,8 +16,8 @@ import 'package:flutter_social_demo/app/uikit/empty_result.dart';
 import 'package:flutter_social_demo/app/uikit/error_page.dart';
 import 'package:flutter_social_demo/app/uikit/loader.dart';
 import 'package:flutter_social_demo/app/uikit/loader_page.dart';
-import 'package:flutter_social_demo/repository/models/album_model.dart';
-import 'package:flutter_social_demo/repository/models/photo_model.dart';
+import 'package:flutter_social_demo/models/album_model.dart';
+import 'package:flutter_social_demo/models/photo_model.dart';
 import 'package:flutter_social_demo/screens/albums/bloc/albums_cubit.dart';
 
 class AlbumDetailScreen extends StatelessWidget {

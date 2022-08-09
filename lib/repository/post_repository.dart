@@ -1,8 +1,8 @@
 // Project imports:
 import 'package:flutter_social_demo/api/post_api.dart';
 import 'package:flutter_social_demo/app/config/exceptions.dart';
-import 'package:flutter_social_demo/repository/models/comment_model.dart';
-import 'package:flutter_social_demo/repository/models/post_model.dart';
+import 'package:flutter_social_demo/models/comment_model.dart';
+import 'package:flutter_social_demo/models/post_model.dart';
 import 'package:flutter_social_demo/services/caching_service.dart';
 import 'package:flutter_social_demo/services/hive_service.dart';
 import 'package:flutter_social_demo/services/shared_preferences.dart';

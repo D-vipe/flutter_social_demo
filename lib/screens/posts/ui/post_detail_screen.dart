@@ -14,8 +14,8 @@ import 'package:flutter_social_demo/app/uikit/card_row.dart';
 import 'package:flutter_social_demo/app/uikit/empty_result.dart';
 import 'package:flutter_social_demo/app/uikit/error_page.dart';
 import 'package:flutter_social_demo/app/uikit/loader_page.dart';
-import 'package:flutter_social_demo/repository/models/comment_model.dart';
-import 'package:flutter_social_demo/repository/models/post_model.dart';
+import 'package:flutter_social_demo/models/comment_model.dart';
+import 'package:flutter_social_demo/models/post_model.dart';
 import 'package:flutter_social_demo/screens/posts/bloc/posts_cubit.dart';
 import 'package:flutter_social_demo/screens/posts/ui/widgets/bottom_sheet_form.dart';
 

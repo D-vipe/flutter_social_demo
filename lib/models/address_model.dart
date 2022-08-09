@@ -1,9 +1,9 @@
 // Package imports:
+import 'package:flutter_social_demo/models/geo_location_model.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
-import 'package:flutter_social_demo/repository/models/geo_location_model.dart';
 
 part 'address_model.g.dart';
 

@@ -3,7 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
-import 'package:flutter_social_demo/repository/models/photo_model.dart';
+import 'package:flutter_social_demo/models/photo_model.dart';
 
 part 'album_model.g.dart';
 

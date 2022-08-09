@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Project imports:
 import 'package:flutter_social_demo/app/config/exceptions.dart';
 import 'package:flutter_social_demo/app/constants/errors_const.dart';
-import 'package:flutter_social_demo/repository/models/profile_model.dart';
+import 'package:flutter_social_demo/models/profile_model.dart';
 import 'package:flutter_social_demo/repository/profile_repository.dart';
 
 part 'profile_state.dart';

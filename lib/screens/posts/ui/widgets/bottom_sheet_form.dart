@@ -19,9 +19,9 @@ class BottomSheetForm extends StatefulWidget {
 
 class _BottomSheetFormState extends State<BottomSheetForm> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _controllerName = TextEditingController();
-  TextEditingController _controllerEmail = TextEditingController();
-  TextEditingController _controllerComment = TextEditingController();
+  final TextEditingController _controllerName = TextEditingController();
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerComment = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

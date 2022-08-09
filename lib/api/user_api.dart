@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_social_demo/app/config/dio_settings.dart';
 import 'package:flutter_social_demo/app/config/exceptions.dart';
 import 'package:flutter_social_demo/app/config/path.dart';
-import 'package:flutter_social_demo/repository/models/user_model.dart';
+import 'package:flutter_social_demo/models/user_model.dart';
 
 class UserApi {
   final Dio _dio;
