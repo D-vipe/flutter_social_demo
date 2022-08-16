@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
 import 'package:flutter_social_demo/app/theme/text_styles.dart';
 import 'package:flutter_social_demo/app/uikit/card_row.dart';
@@ -21,7 +20,7 @@ class UserCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Card(
-        shadowColor: AppColors.mainTheme,
+        shadowColor: Theme.of(context).colorScheme.primary,
         elevation: 5,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -32,19 +31,11 @@ class UserCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CardRow(
-                  value: userName,
-                  title: AppDictionary.userName,
-                  reduceWidth: 150,
-                  valueStyle: AppTextStyle.comforta14W400),
+              CardRow(value: userName, title: AppDictionary.userName, reduceWidth: 150, valueStyle: AppTextStyle.comforta14W400),
               const SizedBox(
                 height: 10,
               ),
-              CardRow(
-                  title: AppDictionary.name,
-                  value: name,
-                  reduceWidth: 94,
-                  valueStyle: AppTextStyle.comforta14W400)
+              CardRow(title: AppDictionary.name, value: name, reduceWidth: 94, valueStyle: AppTextStyle.comforta14W400)
             ],
           ),
         ),

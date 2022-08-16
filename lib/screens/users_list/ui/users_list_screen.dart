@@ -16,18 +16,6 @@ import 'package:flutter_social_demo/models/user_model.dart';
 import 'package:flutter_social_demo/screens/users_list/bloc/users_list_cubit.dart';
 import 'package:flutter_social_demo/screens/users_list/ui/widgets/user_card.dart';
 
-class UsersListScreen extends StatelessWidget {
-  const UsersListScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => UsersListCubit(),
-      child: const UsersListView(),
-    );
-  }
-}
-
 class UsersListView extends StatefulWidget {
   const UsersListView({Key? key}) : super(key: key);
 

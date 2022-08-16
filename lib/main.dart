@@ -15,6 +15,7 @@ import 'package:flutter_social_demo/redux/app_state.dart';
 import 'package:flutter_social_demo/services/caching_service.dart';
 import 'package:flutter_social_demo/services/hive_service.dart';
 import 'package:flutter_social_demo/services/shared_preferences.dart';
+import 'package:flutter_social_demo/services/theme_service.dart';
 import 'package:redux/redux.dart';
 
 void main() async {
@@ -32,14 +33,35 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
 
+  @override
+  _MyAppState createState() => _MyAppState();
+
+  static _MyAppState? of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>();
+}
+
+class _MyAppState extends State<MyApp> {
   final store = Store<AppState>(
     appReducer,
     initialState: AppState.initialState(),
     middleware: createAppMiddleWare(),
   );
+  bool _light = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _light = ThemeService.getCurrentTheme();
+  }
+
+  void changeTheme(bool lightTheme) {
+    setState(() {
+      _light = lightTheme;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +69,12 @@ class MyApp extends StatelessWidget {
       store: store,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Demo Social App',
+        title: 'Social App',
         locale: const Locale('ru'),
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
         ],
-        theme: AppTheme.baseTheme(),
+        theme: _light ? AppTheme.lightTheme() : AppTheme.darkTheme(),
         onGenerateRoute: AppRouter.onGenerateRoute,
         initialRoute: 'home',
       ),

@@ -8,6 +8,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
 import 'package:flutter_social_demo/app/theme/text_styles.dart';
+import 'package:flutter_social_demo/app/uikit/form_elements/custom_input.dart';
 
 class BottomSheetForm extends StatefulWidget {
   final Function sendForm;
@@ -22,6 +23,21 @@ class _BottomSheetFormState extends State<BottomSheetForm> {
   final TextEditingController _controllerName = TextEditingController();
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerComment = TextEditingController();
+
+  String? emailValidator(value) {
+    if (value == null || value.isEmpty) {
+      return AppDictionary.fillInput;
+    } else {
+      return EmailValidator.validate(value) ? null : AppDictionary.wrongEmail;
+    }
+  }
+
+  String? emptyValueValidator(value) {
+    if (value == null || value.isEmpty) {
+      return AppDictionary.fillInput;
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,85 +54,38 @@ class _BottomSheetFormState extends State<BottomSheetForm> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppDictionary.fillInput;
-                    }
-                    return null;
-                  },
+                CustomInput(
+                  label: AppDictionary.name,
                   controller: _controllerName,
-                  decoration: const InputDecoration(
-                    labelText: AppDictionary.name,
-                    floatingLabelStyle: TextStyle(color: AppColors.mainTheme),
-                    border: OutlineInputBorder(),
-                    focusColor: AppColors.mainTheme,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: AppColors.mainTheme, width: 2),
-                    ),
-                  ),
+                  validation: emptyValueValidator,
+                  maxLines: 1,
                 ),
                 const SizedBox(height: 10),
-                TextFormField(
+                CustomInput(
+                  label: AppDictionary.email,
                   controller: _controllerEmail,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppDictionary.fillInput;
-                    } else {
-                      return EmailValidator.validate(value)
-                          ? null
-                          : AppDictionary.wrongEmail;
-                    }
-                  },
-                  decoration: const InputDecoration(
-                    labelText: AppDictionary.email,
-                    floatingLabelStyle: TextStyle(color: AppColors.mainTheme),
-                    border: OutlineInputBorder(),
-                    focusColor: AppColors.mainTheme,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: AppColors.mainTheme, width: 2),
-                    ),
-                  ),
+                  validation: emailValidator,
+                  maxLines: 1,
                 ),
                 const SizedBox(height: 10),
-                TextFormField(
-                  maxLines: 3,
+                CustomInput(
+                  label: AppDictionary.comment,
                   controller: _controllerComment,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppDictionary.fillInput;
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                    labelText: AppDictionary.comment,
-                    floatingLabelStyle: TextStyle(color: AppColors.mainTheme),
-                    border: OutlineInputBorder(),
-                    focusColor: AppColors.mainTheme,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: AppColors.mainTheme, width: 2),
-                    ),
-                  ),
+                  validation: emptyValueValidator,
+                  maxLines: 3,
                 ),
                 const SizedBox(height: 10),
                 OutlinedButton(
                     onPressed: () {
                       FocusManager.instance.primaryFocus?.unfocus();
                       if (_formKey.currentState!.validate()) {
-                        widget.sendForm(_controllerName.text,
-                            _controllerEmail.text, _controllerComment.text);
+                        widget.sendForm(_controllerName.text, _controllerEmail.text, _controllerComment.text);
                         Navigator.of(context).pop();
                       }
                     },
-                    style: OutlinedButton.styleFrom(
-                        backgroundColor: AppColors.mainTheme),
                     child: Text(
                       AppDictionary.send,
-                      style: AppTextStyle.comforta16W400
-                          .apply(color: AppColors.white),
+                      style: AppTextStyle.comforta16W400.apply(color: AppColors.white),
                     ))
               ],
             ),

@@ -15,18 +15,6 @@ import 'package:flutter_social_demo/models/album_model.dart';
 import 'package:flutter_social_demo/screens/albums/bloc/albums_cubit.dart';
 import 'package:flutter_social_demo/screens/albums/ui/widgets/album_card.dart';
 
-class AlbumsListScreen extends StatelessWidget {
-  const AlbumsListScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => AlbumsCubit(),
-      child: const AlbumsListView(),
-    );
-  }
-}
-
 class AlbumsListView extends StatefulWidget {
   const AlbumsListView({Key? key}) : super(key: key);
 
