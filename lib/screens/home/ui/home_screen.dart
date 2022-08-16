@@ -26,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<bool> _onWillPop() async {
     if (!Navigator.canPop(context)) {
-      // Если проваливаться некуда, то вернемся на dashboard
       setState(() => requestedIndex = 0);
     }
     return Navigator.canPop(context);

@@ -30,6 +30,9 @@ dependencies:
   cached_network_image: ^3.2.1
   carousel_slider: ^4.1.1
   email_validator: ^2.0.1
+  redux: ^5.0.0
+  flutter_redux: ^0.10.0
+  redux_thunk: ^0.4.0
 
 dev_dependencies:
   flutter_test:
