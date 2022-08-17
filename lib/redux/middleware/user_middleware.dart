@@ -44,17 +44,13 @@ Middleware<AppState> _fetchUsersList({required bool refresh}) {
           })
           .catchError(
             test: ((error) => error is ParseException),
-            (error, _) => refresh
-                ? store.dispatch(GetUsersListSucceedAction(usersList: store.state.usersListState.usersList ?? []))
-                : store.dispatch(GetUsersListErrorAction(GeneralErrors.emptyData)),
+            (error, _) => store.dispatch(GetUsersListSucceedAction(usersList: store.state.usersListState.usersList ?? [])),
           )
           .onError(
-            (error, _) => refresh
-                ? store.dispatch(GetUsersListSucceedAction(usersList: store.state.usersListState.usersList ?? []))
-                : store.dispatch(GetUsersListErrorAction(GeneralErrors.emptyData)),
+            (error, _) => store.dispatch(GetUsersListSucceedAction(usersList: store.state.usersListState.usersList ?? [])),
           );
     } else {
-      refresh ? store.dispatch(RefreshUsersSucceedAction(usersList: data)) : store.dispatch(GetUsersListSucceedAction(usersList: data));
+      store.dispatch(GetUsersListSucceedAction(usersList: data));
     }
   };
 }

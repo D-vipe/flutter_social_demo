@@ -5,54 +5,28 @@ import 'package:redux/redux.dart';
 
 final usersListReducer = combineReducers<UsersListViewModel>([
   TypedReducer<UsersListViewModel, GetUsersListSucceedAction>(_fetch),
-  TypedReducer<UsersListViewModel, RefreshUsersSucceedAction>(_refreshSuccess),
   TypedReducer<UsersListViewModel, RefreshUsersListAction>(_refresh),
   TypedReducer<UsersListViewModel, LoadMoreUsersAction>(_loadMore),
   TypedReducer<UsersListViewModel, GetMoreUsersSucceedAction>(_loadMoreSuccess),
 ]);
 
-UsersListViewModel _fetch(
-    UsersListViewModel state, GetUsersListSucceedAction action) {
+UsersListViewModel _fetch(UsersListViewModel state, GetUsersListSucceedAction action) {
   List<User> updatedList = List<User>.from(action.usersList);
 
-  return state.copyWith(
-      isLoading: false,
-      isRefreshing: false,
-      isLoadingMore: false,
-      usersList: updatedList);
+  return state.copyWith(isLoading: false, isRefreshing: false, isLoadingMore: false, usersList: updatedList);
 }
 
-UsersListViewModel _refreshSuccess(
-    UsersListViewModel state, RefreshUsersSucceedAction action) {
-  List<User> updatedList = List<User>.from(action.usersList);
-
-  return state.copyWith(
-      isLoading: false,
-      isRefreshing: false,
-      isLoadingMore: false,
-      usersList: updatedList);
+UsersListViewModel _refresh(UsersListViewModel state, RefreshUsersListAction action) {
+  return state.copyWith(isLoading: false, isRefreshing: true, isLoadingMore: false);
 }
 
-UsersListViewModel _refresh(
-    UsersListViewModel state, RefreshUsersListAction action) {
-  return state.copyWith(
-      isLoading: false, isRefreshing: true, isLoadingMore: false);
+UsersListViewModel _loadMore(UsersListViewModel state, LoadMoreUsersAction action) {
+  return state.copyWith(isLoading: false, isRefreshing: false, isLoadingMore: true);
 }
 
-UsersListViewModel _loadMore(
-    UsersListViewModel state, LoadMoreUsersAction action) {
-  return state.copyWith(
-      isLoading: false, isRefreshing: false, isLoadingMore: true);
-}
-
-UsersListViewModel _loadMoreSuccess(
-    UsersListViewModel state, GetMoreUsersSucceedAction action) {
+UsersListViewModel _loadMoreSuccess(UsersListViewModel state, GetMoreUsersSucceedAction action) {
   List<User> newList = state.usersList ?? [];
   newList.addAll(action.usersList);
 
-  return state.copyWith(
-      isLoading: false,
-      isRefreshing: false,
-      isLoadingMore: false,
-      usersList: newList);
+  return state.copyWith(isLoading: false, isRefreshing: false, isLoadingMore: false, usersList: newList);
 }
