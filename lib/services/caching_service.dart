@@ -6,8 +6,9 @@ import 'package:flutter_social_demo/models/user_model.dart';
 import 'package:flutter_social_demo/services/hive_service.dart';
 import 'package:flutter_social_demo/services/shared_preferences.dart';
 
+const num cachingMinutes = 5;
+
 class CachingService {
-  // final num cachingMinutes = 30;
   static bool needToSendRequest({required PreferenceKey key}) {
     bool res = false;
     String cachingTime = SharedStorageService.getString(key);
@@ -18,7 +19,7 @@ class CachingService {
       DateTime _now = DateTime.now();
       DateTime? _cachedTime = DateTime.tryParse(cachingTime);
       if (_cachedTime != null) {
-        if (_now.difference(_cachedTime).inMinutes > 30) {
+        if (_now.difference(_cachedTime).inMinutes > cachingMinutes) {
           res = true;
         } else {
           res = false;

@@ -14,6 +14,12 @@ class GetMoreUsersSucceedAction {
   GetMoreUsersSucceedAction({required this.usersList});
 }
 
+class RefreshUsersSucceedAction {
+  final List<User> usersList;
+
+  RefreshUsersSucceedAction({required this.usersList});
+}
+
 class GetUsersListErrorAction {
   final String errorMessage;
 

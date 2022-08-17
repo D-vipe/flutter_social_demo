@@ -34,4 +34,17 @@ class UsersListViewModel {
         isLoadingMore: false,
         usersList: null);
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UsersListViewModel &&
+          runtimeType == other.runtimeType &&
+          isLoading == other.isLoading &&
+          isRefreshing == other.isRefreshing &&
+          isLoadingMore == other.isLoadingMore &&
+          usersList == null;
+
+  @override
+  int get hashCode => isLoading.hashCode ^ usersList.hashCode;
 }

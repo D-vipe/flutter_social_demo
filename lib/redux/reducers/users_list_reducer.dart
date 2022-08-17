@@ -5,6 +5,7 @@ import 'package:redux/redux.dart';
 
 final usersListReducer = combineReducers<UsersListViewModel>([
   TypedReducer<UsersListViewModel, GetUsersListSucceedAction>(_fetch),
+  TypedReducer<UsersListViewModel, RefreshUsersSucceedAction>(_refreshSuccess),
   TypedReducer<UsersListViewModel, RefreshUsersListAction>(_refresh),
   TypedReducer<UsersListViewModel, LoadMoreUsersAction>(_loadMore),
   TypedReducer<UsersListViewModel, GetMoreUsersSucceedAction>(_loadMoreSuccess),
@@ -12,11 +13,24 @@ final usersListReducer = combineReducers<UsersListViewModel>([
 
 UsersListViewModel _fetch(
     UsersListViewModel state, GetUsersListSucceedAction action) {
+  List<User> updatedList = List<User>.from(action.usersList);
+
   return state.copyWith(
       isLoading: false,
       isRefreshing: false,
       isLoadingMore: false,
-      usersList: action.usersList);
+      usersList: updatedList);
+}
+
+UsersListViewModel _refreshSuccess(
+    UsersListViewModel state, RefreshUsersSucceedAction action) {
+  List<User> updatedList = List<User>.from(action.usersList);
+
+  return state.copyWith(
+      isLoading: false,
+      isRefreshing: false,
+      isLoadingMore: false,
+      usersList: updatedList);
 }
 
 UsersListViewModel _refresh(

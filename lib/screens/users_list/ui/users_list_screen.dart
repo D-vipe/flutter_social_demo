@@ -61,13 +61,15 @@ class _UsersListViewState extends State<UsersListView>
       distinct: true,
       converter: (store) => store.state.usersListState,
       onInit: (store) => store.dispatch(GetUsersListAction()),
-      builder: (_, state) {
-        if (!state.isRefreshing && _refreshController.isRefresh) {
+      onDidChange: (oldState, newState) {
+        if (!newState.isRefreshing && _refreshController.isRefresh) {
           _refreshController.refreshCompleted();
         }
-        if (!state.isLoadingMore && _refreshController.isLoading) {
+        if (!newState.isLoadingMore && _refreshController.isLoading) {
           _refreshController.loadComplete();
         }
+      },
+      builder: (_, state) {
         return state.isLoading
             ? const LoaderPage()
             : SmartRefresher(
