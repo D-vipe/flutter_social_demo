@@ -1,22 +1,22 @@
-import 'package:flutter_social_demo/models/models.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_social_demo/redux/viewmodels/users_list_view_model.dart';
 
+@immutable
 class AppState {
-  final bool isLoading;
-  final List<User>? usersList;
+  final UsersListViewModel usersListState;
 
-  AppState({
-    required this.isLoading,
-    this.usersList,
+  const AppState({
+    required this.usersListState,
   });
 
-  factory AppState.initialState() => AppState(isLoading: true, usersList: []);
+  factory AppState.initialState() => AppState(
+        usersListState: UsersListViewModel.initial(),
+      );
 
   AppState copyWith({
-    required bool isLoading,
-    List<User>? usersList,
+    required UsersListViewModel usersListState,
   }) =>
       AppState(
-        isLoading: isLoading,
-        usersList: usersList ?? this.usersList,
+        usersListState: usersListState,
       );
 }

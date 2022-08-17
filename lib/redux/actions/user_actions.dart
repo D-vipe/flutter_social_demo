@@ -5,7 +5,13 @@ class GetUsersListAction {}
 class GetUsersListSucceedAction {
   final List<User> usersList;
 
-  GetUsersListSucceedAction(this.usersList);
+  GetUsersListSucceedAction({required this.usersList});
+}
+
+class GetMoreUsersSucceedAction {
+  final List<User> usersList;
+
+  GetMoreUsersSucceedAction({required this.usersList});
 }
 
 class GetUsersListErrorAction {
@@ -17,11 +23,11 @@ class GetUsersListErrorAction {
 class RefreshUsersListAction {
   final List<User> oldList;
 
-  RefreshUsersListAction(this.oldList);
+  RefreshUsersListAction({required this.oldList});
 }
 
 class LoadMoreUsersAction {
   final List<User> oldList;
 
-  LoadMoreUsersAction(this.oldList);
+  LoadMoreUsersAction({required this.oldList});
 }

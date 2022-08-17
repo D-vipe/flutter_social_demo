@@ -19,8 +19,9 @@ Middleware<AppState> _fetchUsersList() {
   // TODO implement caching service
   return (Store<AppState> store, action, NextDispatcher next) {
     _userApi.getList().then((List<User> users) {
-      store.dispatch(GetUsersListSucceedAction(users));
-    }).onError((error, _) => store.dispatch(GetUsersListErrorAction(GeneralErrors.emptyData)));
+      store.dispatch(GetUsersListSucceedAction(usersList: users));
+    }).onError((error, _) =>
+        store.dispatch(GetUsersListErrorAction(GeneralErrors.emptyData)));
 
     next(action);
   };
@@ -29,8 +30,9 @@ Middleware<AppState> _fetchUsersList() {
 Middleware<AppState> _refreshUsersList() {
   return (Store<AppState> store, action, NextDispatcher next) {
     _userApi.getList().then((List<User> users) {
-      store.dispatch(GetUsersListSucceedAction(users));
-    }).onError((error, _) => store.dispatch(GetUsersListSucceedAction(store.state.usersList ?? [])));
+      store.dispatch(GetUsersListSucceedAction(usersList: users));
+    }).onError((error, _) => store.dispatch(GetUsersListSucceedAction(
+        usersList: store.state.usersListState.usersList ?? [])));
 
     next(action);
   };
@@ -41,8 +43,9 @@ Middleware<AppState> _loadMoreUsers() {
   // TODO imitate page increment upon loading
   return (Store<AppState> store, action, NextDispatcher next) {
     _userApi.getList().then((List<User> users) {
-      store.dispatch(GetUsersListSucceedAction(users));
-    }).onError((error, _) => store.dispatch(GetUsersListErrorAction(GeneralErrors.emptyData)));
+      store.dispatch(GetMoreUsersSucceedAction(usersList: users));
+    }).onError((error, _) =>
+        store.dispatch(GetUsersListErrorAction(GeneralErrors.emptyData)));
 
     next(action);
   };

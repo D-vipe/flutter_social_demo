@@ -9,7 +9,7 @@ import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/constants/app_decorations.dart';
 import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
 import 'package:flutter_social_demo/app/theme/text_styles.dart';
-import 'package:flutter_social_demo/repository/models/profile_model.dart';
+import 'package:flutter_social_demo/models/profile_model.dart';
 import 'package:flutter_social_demo/screens/albums/ui/albums_list_screen.dart';
 import 'package:flutter_social_demo/screens/home/ui/widgets/settings_bottom_sheet.dart';
 import 'package:flutter_social_demo/screens/posts/ui/posts_list_screen.dart';
@@ -18,11 +18,11 @@ import 'package:flutter_social_demo/screens/users_list/ui/users_list_screen.dart
 
 class TabsScaffold extends StatefulWidget {
   final int? requestedIndex;
-  final Profile profile;
+  // final Profile profile;
   const TabsScaffold({
     Key? key,
     this.requestedIndex,
-    required this.profile,
+    // required this.profile,
   }) : super(key: key);
 
   @override
@@ -64,11 +64,14 @@ class _TabsScaffoldState extends State<TabsScaffold> {
   void _updateTabWidgets() {
     tabs = [
       const UsersListView(),
-      const PostsListView(),
-      const AlbumsListView(),
-      ProfileView(
-        onChangedTab: onChangedTab,
-      ),
+      Container(),
+      Container(),
+      Container(),
+      // const PostsListView(),
+      // const AlbumsListView(),
+      // ProfileView(
+      //   onChangedTab: onChangedTab,
+      // ),
     ];
   }
 
@@ -77,7 +80,8 @@ class _TabsScaffoldState extends State<TabsScaffold> {
       AppBarTitles.userList,
       AppBarTitles.userPosts,
       AppBarTitles.userGallery,
-      widget.profile.user.username,
+      ''
+      // widget.profile.user.username,
     ];
 
     appBarActions = [

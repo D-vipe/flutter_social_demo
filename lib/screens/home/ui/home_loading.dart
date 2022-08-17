@@ -9,7 +9,7 @@ class HomeLoadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       extendBody: true,
       body: LoaderPage(),
     );

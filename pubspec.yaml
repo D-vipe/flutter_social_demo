@@ -55,7 +55,6 @@ flutter:
 
   assets:
     - assets/app_icons/
-    - assets/icons/
 
   fonts:
     - family: Comfortaa

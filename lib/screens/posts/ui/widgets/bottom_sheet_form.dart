@@ -79,13 +79,15 @@ class _BottomSheetFormState extends State<BottomSheetForm> {
                     onPressed: () {
                       FocusManager.instance.primaryFocus?.unfocus();
                       if (_formKey.currentState!.validate()) {
-                        widget.sendForm(_controllerName.text, _controllerEmail.text, _controllerComment.text);
+                        widget.sendForm(_controllerName.text,
+                            _controllerEmail.text, _controllerComment.text);
                         Navigator.of(context).pop();
                       }
                     },
                     child: Text(
                       AppDictionary.send,
-                      style: AppTextStyle.comforta16W400.apply(color: AppColors.white),
+                      style: AppTextStyle.comforta16W400
+                          .apply(color: AppColors.white),
                     ))
               ],
             ),
