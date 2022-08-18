@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_social_demo/redux/actions/user_actions.dart';
 import 'package:flutter_social_demo/redux/app_state.dart';
@@ -16,9 +15,7 @@ import 'package:flutter_social_demo/app/uikit/error_page.dart';
 import 'package:flutter_social_demo/app/uikit/loader_page.dart';
 import 'package:flutter_social_demo/app/uikit/smart_refresh_components/refresh_footer.dart';
 import 'package:flutter_social_demo/app/uikit/smart_refresh_components/refresh_header.dart';
-import 'package:flutter_social_demo/models/user_model.dart';
 import 'package:flutter_social_demo/screens/users_list/ui/widgets/user_card.dart';
-import 'package:redux/redux.dart';
 
 class UsersListView extends StatefulWidget {
   const UsersListView({Key? key}) : super(key: key);
@@ -33,26 +30,6 @@ class _UsersListViewState extends State<UsersListView>
   bool get wantKeepAlive => true;
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
-
-  @override
-  void initState() {
-    super.initState();
-
-    // context.read<UsersListCubit>().getList();
-  }
-
-  Future<void> _refreshScreen() async {
-    // await context.read<UsersListCubit>().refreshList(oldList: list);
-    _refreshController.refreshCompleted();
-  }
-
-  Future<void> _loadMore({required List<User> list}) async {
-    // await context.read<UsersListCubit>().loadMore(oldList: list);
-    if (mounted) {
-      setState(() {});
-    }
-    _refreshController.loadComplete();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,19 +64,22 @@ class _UsersListViewState extends State<UsersListView>
                       LoadMoreUsersAction(oldList: state.usersList ?? []));
                   // await _loadMore(list: state.usersList ?? []);
                 },
-                child: state.usersList!.isNotEmpty
-                    ? ListView.builder(
-                        itemBuilder: (c, i) => UserCard(
-                          name: state.usersList![i].name,
-                          userName: state.usersList![i].username,
-                        ),
-                        itemExtent: 94.0,
-                        itemCount: state.usersList!.length,
-                        padding: const EdgeInsets.only(bottom: 95),
-                      )
-                    : const EmptyPage(
-                        message: GeneralErrors.emptyUsers,
-                      ));
+                child: (state.isError == true)
+                    ? ErrorPage(message: state.errorMessage!)
+                    : state.usersList!.isNotEmpty
+                        ? ListView.builder(
+                            itemBuilder: (c, i) => UserCard(
+                              name: state.usersList![i].name,
+                              userName: state.usersList![i].username,
+                            ),
+                            itemExtent: 94.0,
+                            itemCount: state.usersList!.length,
+                            padding: const EdgeInsets.only(bottom: 95),
+                          )
+                        : const EmptyPage(
+                            message: GeneralErrors.emptyUsers,
+                          ),
+              );
       },
     );
   }

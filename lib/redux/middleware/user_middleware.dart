@@ -12,8 +12,10 @@ final UserApi _userApi = UserApi();
 
 List<Middleware<AppState>> createUsersListMiddleware() {
   return [
-    TypedMiddleware<AppState, GetUsersListAction>(_fetchUsersList(refresh: false)),
-    TypedMiddleware<AppState, RefreshUsersListAction>(_fetchUsersList(refresh: true)),
+    TypedMiddleware<AppState, GetUsersListAction>(
+        _fetchUsersList(refresh: false)),
+    TypedMiddleware<AppState, RefreshUsersListAction>(
+        _fetchUsersList(refresh: true)),
     TypedMiddleware<AppState, LoadMoreUsersAction>(_loadMoreUsers()),
   ];
 }
@@ -27,7 +29,8 @@ Middleware<AppState> _fetchUsersList({required bool refresh}) {
     bool needToFetch = true;
 
     // check caching time
-    if (!CachingService.needToSendRequest(key: PreferenceKey.userListCacheTime)) {
+    if (!CachingService.needToSendRequest(
+        key: PreferenceKey.userListCacheTime)) {
       // check if Hive is not empty
       data = CachingService.getCachedUsers();
       needToFetch = data.isEmpty;
@@ -39,15 +42,24 @@ Middleware<AppState> _fetchUsersList({required bool refresh}) {
           .getList()
           .then((List<User> users) {
             CachingService.cacheUserList(list: users);
-            CachingService.setCachingTime(key: PreferenceKey.userListCacheTime, time: DateTime.now());
+            CachingService.setCachingTime(
+                key: PreferenceKey.userListCacheTime, time: DateTime.now());
             store.dispatch(GetUsersListSucceedAction(usersList: users));
           })
           .catchError(
             test: ((error) => error is ParseException),
-            (error, _) => store.dispatch(GetUsersListSucceedAction(usersList: store.state.usersListState.usersList ?? [])),
+            (error, _) => refresh
+                ? store.dispatch(GetUsersListSucceedAction(
+                    usersList: store.state.usersListState.usersList ?? []))
+                : store.dispatch(GetUsersListErrorAction(
+                    errorMessage: GeneralErrors.parseError)),
           )
           .onError(
-            (error, _) => store.dispatch(GetUsersListSucceedAction(usersList: store.state.usersListState.usersList ?? [])),
+            (error, _) => refresh
+                ? store.dispatch(GetUsersListSucceedAction(
+                    usersList: store.state.usersListState.usersList ?? []))
+                : store.dispatch(GetUsersListErrorAction(
+                    errorMessage: GeneralErrors.generalError)),
           );
     } else {
       store.dispatch(GetUsersListSucceedAction(usersList: data));
@@ -67,10 +79,12 @@ Middleware<AppState> _loadMoreUsers() {
         })
         .catchError(
           test: ((error) => error is ParseException),
-          (error, _) => store.dispatch(GetMoreUsersSucceedAction(usersList: store.state.usersListState.usersList ?? [])),
+          (error, _) => store.dispatch(GetMoreUsersSucceedAction(
+              usersList: store.state.usersListState.usersList ?? [])),
         )
         .onError(
-          (error, _) => store.dispatch(GetUsersListErrorAction(GeneralErrors.emptyData)),
+          (error, _) => store.dispatch(
+              GetUsersListErrorAction(errorMessage: GeneralErrors.emptyData)),
         );
   };
 }

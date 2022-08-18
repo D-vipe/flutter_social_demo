@@ -9,11 +9,8 @@ import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/constants/app_decorations.dart';
 import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
 import 'package:flutter_social_demo/app/theme/text_styles.dart';
-import 'package:flutter_social_demo/models/profile_model.dart';
-import 'package:flutter_social_demo/screens/albums/ui/albums_list_screen.dart';
 import 'package:flutter_social_demo/screens/home/ui/widgets/settings_bottom_sheet.dart';
 import 'package:flutter_social_demo/screens/posts/ui/posts_list_screen.dart';
-import 'package:flutter_social_demo/screens/profile/ui/profile_screen.dart';
 import 'package:flutter_social_demo/screens/users_list/ui/users_list_screen.dart';
 
 class TabsScaffold extends StatefulWidget {
@@ -64,10 +61,10 @@ class _TabsScaffoldState extends State<TabsScaffold> {
   void _updateTabWidgets() {
     tabs = [
       const UsersListView(),
+      const PostsListView(),
       Container(),
       Container(),
       Container(),
-      // const PostsListView(),
       // const AlbumsListView(),
       // ProfileView(
       //   onChangedTab: onChangedTab,

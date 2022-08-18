@@ -17,7 +17,7 @@ class GetMoreUsersSucceedAction {
 class GetUsersListErrorAction {
   final String errorMessage;
 
-  GetUsersListErrorAction(this.errorMessage);
+  GetUsersListErrorAction({required this.errorMessage});
 }
 
 class RefreshUsersListAction {

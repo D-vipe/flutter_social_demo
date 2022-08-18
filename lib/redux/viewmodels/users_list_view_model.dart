@@ -6,12 +6,16 @@ class UsersListViewModel {
   final bool isLoading;
   final bool isRefreshing;
   final bool isLoadingMore;
+  final bool? isError;
+  final String? errorMessage;
   final List<User>? usersList;
 
   const UsersListViewModel({
     required this.isLoading,
     required this.isRefreshing,
     required this.isLoadingMore,
+    this.isError,
+    this.errorMessage,
     this.usersList,
   });
 
@@ -19,20 +23,24 @@ class UsersListViewModel {
       {required bool isLoading,
       required bool isRefreshing,
       required bool isLoadingMore,
+      bool? isError,
+      String? errorMessage,
       List<User>? usersList}) {
     return UsersListViewModel(
         isLoading: isLoading,
         isRefreshing: isRefreshing,
         isLoadingMore: isLoadingMore,
+        isError: isError ?? this.isError,
+        errorMessage: errorMessage ?? this.errorMessage,
         usersList: usersList ?? this.usersList);
   }
 
   factory UsersListViewModel.initial() {
     return const UsersListViewModel(
-        isLoading: true,
-        isRefreshing: false,
-        isLoadingMore: false,
-        usersList: null);
+      isLoading: true,
+      isRefreshing: false,
+      isLoadingMore: false,
+    );
   }
 
   @override
@@ -43,7 +51,8 @@ class UsersListViewModel {
           isLoading == other.isLoading &&
           isRefreshing == other.isRefreshing &&
           isLoadingMore == other.isLoadingMore &&
-          usersList == null;
+          isError == other.isError &&
+          usersList == other.usersList;
 
   @override
   int get hashCode => isLoading.hashCode ^ usersList.hashCode;
