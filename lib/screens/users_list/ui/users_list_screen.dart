@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_social_demo/redux/actions/user_actions.dart';
 import 'package:flutter_social_demo/redux/app_state.dart';
-import 'package:flutter_social_demo/redux/viewmodels/users_list_view_model.dart';
+import 'package:flutter_social_demo/screens/users_list/view_model/users_list_view_model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // Project imports:

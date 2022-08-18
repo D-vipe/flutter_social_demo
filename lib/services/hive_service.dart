@@ -1,16 +1,8 @@
 // Package imports:
+import 'package:flutter_social_demo/api/models/models.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 // Project imports:
-import 'package:flutter_social_demo/models/address_model.dart';
-import 'package:flutter_social_demo/models/album_model.dart';
-import 'package:flutter_social_demo/models/comment_model.dart';
-import 'package:flutter_social_demo/models/company_model.dart';
-import 'package:flutter_social_demo/models/geo_location_model.dart';
-import 'package:flutter_social_demo/models/photo_model.dart';
-import 'package:flutter_social_demo/models/post_model.dart';
-import 'package:flutter_social_demo/models/profile_model.dart';
-import 'package:flutter_social_demo/models/user_model.dart';
 
 class HiveService {
   static late Box users;

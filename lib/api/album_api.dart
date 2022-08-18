@@ -5,8 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_social_demo/app/config/dio_settings.dart';
 import 'package:flutter_social_demo/app/config/exceptions.dart';
 import 'package:flutter_social_demo/app/config/path.dart';
-import 'package:flutter_social_demo/models/album_model.dart';
-import 'package:flutter_social_demo/models/photo_model.dart';
+import 'package:flutter_social_demo/api/models/album_model.dart';
+import 'package:flutter_social_demo/api/models/photo_model.dart';
 import 'package:flutter_social_demo/services/shared_preferences.dart';
 
 class AlbumApi {

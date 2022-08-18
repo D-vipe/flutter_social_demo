@@ -3,9 +3,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
-import 'package:flutter_social_demo/models/album_model.dart';
-import 'package:flutter_social_demo/models/post_model.dart';
-import 'package:flutter_social_demo/models/user_model.dart';
+import 'package:flutter_social_demo/api/models/album_model.dart';
+import 'package:flutter_social_demo/api/models/post_model.dart';
+import 'package:flutter_social_demo/api/models/user_model.dart';
 
 part 'profile_model.g.dart';
 

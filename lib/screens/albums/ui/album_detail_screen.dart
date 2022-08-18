@@ -16,13 +16,13 @@ import 'package:flutter_social_demo/app/uikit/empty_result.dart';
 import 'package:flutter_social_demo/app/uikit/error_page.dart';
 import 'package:flutter_social_demo/app/uikit/loader.dart';
 import 'package:flutter_social_demo/app/uikit/loader_page.dart';
-import 'package:flutter_social_demo/models/album_model.dart';
-import 'package:flutter_social_demo/models/photo_model.dart';
+import 'package:flutter_social_demo/api/models/models.dart';
 import 'package:flutter_social_demo/screens/albums/bloc/albums_cubit.dart';
 
 class AlbumDetailScreen extends StatelessWidget {
   final DetailPageArgument arguments;
-  const AlbumDetailScreen({Key? key, required this.arguments}) : super(key: key);
+  const AlbumDetailScreen({Key? key, required this.arguments})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -95,13 +95,15 @@ class _AlbumDetailViewState extends State<AlbumDetailView> {
                       return receivedState
                           ? album!.photos != null && album.photos!.isNotEmpty
                               ? Container(
-                                  height: MediaQuery.of(context).size.height - 150,
+                                  height:
+                                      MediaQuery.of(context).size.height - 150,
                                   alignment: Alignment.center,
                                   child: _DetailAlbumBody(
                                     photos: album.photos ?? [],
                                   ),
                                 )
-                              : const EmptyPage(message: GeneralErrors.emptyData)
+                              : const EmptyPage(
+                                  message: GeneralErrors.emptyData)
                           : Column(
                               children: [
                                 SizedBox(
@@ -160,14 +162,17 @@ class _DetailAlbumBody extends StatelessWidget {
 class _PhotoCard extends StatelessWidget {
   final String url;
   final String title;
-  const _PhotoCard({Key? key, required this.url, required this.title}) : super(key: key);
+  const _PhotoCard({Key? key, required this.url, required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       clipBehavior: Clip.hardEdge,
       margin: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(border: Border.all(color: AppColors.black), borderRadius: const BorderRadius.all(Radius.circular(12))),
+      decoration: BoxDecoration(
+          border: Border.all(color: AppColors.black),
+          borderRadius: const BorderRadius.all(Radius.circular(12))),
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(12)),
         child: Stack(
@@ -191,13 +196,15 @@ class _PhotoCard extends StatelessWidget {
                     Container(
                       constraints: const BoxConstraints(maxWidth: 320),
                       alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 3),
                       // width: double.maxFinite,
                       height: 30,
                       color: AppColors.black.withOpacity(.4),
                       child: Text(
                         title,
-                        style: AppTextStyle.comforta10W400.apply(color: AppColors.white),
+                        style: AppTextStyle.comforta10W400
+                            .apply(color: AppColors.white),
                         overflow: TextOverflow.fade,
                       ),
                     ),

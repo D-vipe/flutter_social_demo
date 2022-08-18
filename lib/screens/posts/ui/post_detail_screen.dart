@@ -14,8 +14,7 @@ import 'package:flutter_social_demo/app/uikit/card_row.dart';
 import 'package:flutter_social_demo/app/uikit/empty_result.dart';
 import 'package:flutter_social_demo/app/uikit/error_page.dart';
 import 'package:flutter_social_demo/app/uikit/loader_page.dart';
-import 'package:flutter_social_demo/models/comment_model.dart';
-import 'package:flutter_social_demo/models/post_model.dart';
+import 'package:flutter_social_demo/api/models/models.dart';
 import 'package:flutter_social_demo/screens/posts/bloc/posts_cubit.dart';
 import 'package:flutter_social_demo/screens/posts/ui/widgets/bottom_sheet_form.dart';
 
@@ -25,11 +24,8 @@ class PostDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => PostsCubit(),
-      child: PostDetailView(
-        id: arguments.id,
-      ),
+    return PostDetailView(
+      id: arguments.id,
     );
   }
 }

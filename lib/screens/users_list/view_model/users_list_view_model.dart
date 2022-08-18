@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_social_demo/models/user_model.dart';
+import 'package:flutter_social_demo/api/models/user_model.dart';
 
 @immutable
 class UsersListViewModel {

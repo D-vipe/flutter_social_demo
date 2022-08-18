@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiver/collection.dart';
-import 'package:flutter_social_demo/models/post_model.dart';
+import 'package:flutter_social_demo/api/models/models.dart';
 
 @immutable
 class PostsViewModel {

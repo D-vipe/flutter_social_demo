@@ -1,4 +1,4 @@
-import 'package:flutter_social_demo/models/models.dart';
+import 'package:flutter_social_demo/api/models/models.dart';
 
 class GetUsersListAction {}
 

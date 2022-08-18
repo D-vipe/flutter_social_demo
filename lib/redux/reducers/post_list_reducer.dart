@@ -1,12 +1,12 @@
-import 'package:flutter_social_demo/models/post_model.dart';
+import 'package:flutter_social_demo/api/models/post_model.dart';
 import 'package:flutter_social_demo/redux/actions/posts_actions.dart';
-import 'package:flutter_social_demo/redux/viewmodels/posts_view_model.dart';
+import 'package:flutter_social_demo/screens/posts/view_model/posts_view_model.dart';
 import 'package:redux/redux.dart';
 
 final postListReducer = combineReducers<PostsViewModel>([
   TypedReducer<PostsViewModel, GetPostListSucceedAction>(_fetch),
   TypedReducer<PostsViewModel, RefreshPostListAction>(_refresh),
-  TypedReducer<PostsViewModel, GetPostListErrorAction>(_errorHandler),
+  TypedReducer<PostsViewModel, PostErrorAction>(_errorHandler),
 ]);
 
 PostsViewModel _fetch(PostsViewModel state, GetPostListSucceedAction action) {
@@ -23,8 +23,7 @@ PostsViewModel _refresh(PostsViewModel state, RefreshPostListAction action) {
   );
 }
 
-PostsViewModel _errorHandler(
-    PostsViewModel state, GetPostListErrorAction action) {
+PostsViewModel _errorHandler(PostsViewModel state, PostErrorAction action) {
   return state.copyWith(
       isLoading: false,
       isRefreshing: false,

@@ -1,7 +1,7 @@
 import 'package:flutter_social_demo/api/user_api.dart';
 import 'package:flutter_social_demo/app/config/exceptions.dart';
 import 'package:flutter_social_demo/app/constants/errors_const.dart';
-import 'package:flutter_social_demo/models/models.dart';
+import 'package:flutter_social_demo/api/models/models.dart';
 import 'package:flutter_social_demo/redux/actions/user_actions.dart';
 import 'package:flutter_social_demo/services/caching_service.dart';
 import 'package:flutter_social_demo/services/shared_preferences.dart';

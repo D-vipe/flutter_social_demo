@@ -1,6 +1,6 @@
-import 'package:flutter_social_demo/models/user_model.dart';
+import 'package:flutter_social_demo/api/models/user_model.dart';
 import 'package:flutter_social_demo/redux/actions/user_actions.dart';
-import 'package:flutter_social_demo/redux/viewmodels/users_list_view_model.dart';
+import 'package:flutter_social_demo/screens/users_list/view_model/users_list_view_model.dart';
 import 'package:redux/redux.dart';
 
 final usersListReducer = combineReducers<UsersListViewModel>([

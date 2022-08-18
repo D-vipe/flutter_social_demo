@@ -3,8 +3,8 @@ import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
-import 'package:flutter_social_demo/models/address_model.dart';
-import 'package:flutter_social_demo/models/company_model.dart';
+import 'package:flutter_social_demo/api/models/address_model.dart';
+import 'package:flutter_social_demo/api/models/company_model.dart';
 
 part 'user_model.g.dart';
 

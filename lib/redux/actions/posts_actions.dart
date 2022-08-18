@@ -1,4 +1,4 @@
-import 'package:flutter_social_demo/models/models.dart';
+import 'package:flutter_social_demo/api/models/models.dart';
 
 class GetPostListAction {}
 
@@ -8,14 +8,14 @@ class GetPostListSucceedAction {
   GetPostListSucceedAction({required this.postList});
 }
 
-class GetPostListErrorAction {
-  final String errorMessage;
-
-  GetPostListErrorAction({required this.errorMessage});
-}
-
 class RefreshPostListAction {
   final List<Post> oldList;
 
   RefreshPostListAction({required this.oldList});
+}
+
+class PostErrorAction {
+  final String errorMessage;
+
+  PostErrorAction({required this.errorMessage});
 }

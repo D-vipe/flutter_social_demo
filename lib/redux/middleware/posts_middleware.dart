@@ -1,7 +1,7 @@
 import 'package:flutter_social_demo/api/post_api.dart';
 import 'package:flutter_social_demo/app/config/exceptions.dart';
 import 'package:flutter_social_demo/app/constants/errors_const.dart';
-import 'package:flutter_social_demo/models/post_model.dart';
+import 'package:flutter_social_demo/api/models/post_model.dart';
 import 'package:flutter_social_demo/redux/actions/posts_actions.dart';
 import 'package:flutter_social_demo/redux/app_state.dart';
 import 'package:flutter_social_demo/services/caching_service.dart';
@@ -49,15 +49,15 @@ Middleware<AppState> _fetchPostsList({required bool refresh}) {
             (error, _) => refresh
                 ? store.dispatch(GetPostListSucceedAction(
                     postList: store.state.postsScreenState.postList ?? []))
-                : store.dispatch(GetPostListErrorAction(
-                    errorMessage: GeneralErrors.parseError)),
+                : store.dispatch(
+                    PostErrorAction(errorMessage: GeneralErrors.parseError)),
           )
           .onError(
             (error, _) => refresh
                 ? store.dispatch(GetPostListSucceedAction(
                     postList: store.state.postsScreenState.postList ?? []))
-                : store.dispatch(GetPostListErrorAction(
-                    errorMessage: GeneralErrors.generalError)),
+                : store.dispatch(
+                    PostErrorAction(errorMessage: GeneralErrors.generalError)),
           );
     } else {
       store.dispatch(GetPostListSucceedAction(postList: data));
