@@ -18,6 +18,7 @@ List<Middleware<AppState>> createPostsMiddleware() {
     TypedMiddleware<AppState, RefreshPostListAction>(
         _fetchPostsList(refresh: true)),
     TypedMiddleware<AppState, GetPostDetailAction>(_fetchPostDetail()),
+    TypedMiddleware<AppState, AddPostComment>(_addComment()),
   ];
 }
 
@@ -67,6 +68,39 @@ Middleware<AppState> _fetchPostsList({required bool refresh}) {
   };
 }
 
+Middleware<AppState> _addComment() {
+  return (Store<AppState> store, action, NextDispatcher next) {
+    next(action);
+
+    final int postId = action.postId;
+    final String name = action.name;
+    final String email = action.email;
+    final String body = action.comment;
+
+    try {
+      Future(() async {
+        Comment? newComment;
+        Post? post = await HiveService.getPost(id: postId);
+
+        newComment = await _postsApi.addComment(
+            postId: postId, name: name, email: email, body: body);
+
+        if (newComment != null) {
+          if (post != null && post.comments != null) {
+            post.comments!.add(newComment);
+            post.save();
+          }
+        }
+        store.dispatch(GetPostDetailSuccessAction(data: post!));
+      });
+    } on ParseException {
+      store.dispatch(PostErrorAction(errorMessage: GeneralErrors.parseError));
+    } catch (e) {
+      store.dispatch(PostErrorAction(errorMessage: GeneralErrors.generalError));
+    }
+  };
+}
+
 Middleware<AppState> _fetchPostDetail() {
   return (Store<AppState> store, action, NextDispatcher next) {
     next(action);
@@ -103,22 +137,6 @@ Middleware<AppState> _fetchPostDetail() {
             PostErrorAction(errorMessage: GeneralErrors.generalError));
       }
     });
-
-    // HiveService.getPost(id: postId)
-    //     .then((Post? data) {
-    //       if (data == null) {
-    //         _postsApi.getPostData(id: postId).then((Post? data) {});
-    //       }
-    //     })
-    //     .catchError(
-    //       test: ((error) => error is ParseException),
-    //       (error, _) => store.dispatch(
-    //           PostErrorAction(errorMessage: GeneralErrors.parseError)),
-    //     )
-    //     .onError(
-    //       (error, _) => store.dispatch(
-    //           PostErrorAction(errorMessage: GeneralErrors.generalError)),
-    //     );
   };
 }
 

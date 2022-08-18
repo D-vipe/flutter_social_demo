@@ -28,6 +28,20 @@ class GetPostDetailSuccessAction {
 
   GetPostDetailSuccessAction({required this.data});
 }
+
+class AddPostComment {
+  final int postId;
+  final String name;
+  final String email;
+  final String comment;
+
+  AddPostComment({
+    required this.postId,
+    required this.name,
+    required this.email,
+    required this.comment,
+  });
+}
 // DETAIL SCREEN ACTIONS END
 
 class PostErrorAction {

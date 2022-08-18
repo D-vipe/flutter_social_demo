@@ -92,12 +92,12 @@ class _PostDetailViewState extends State<PostDetailView> {
   }
 
   void sendForm(String name, String email, String comment) {
-    // context.read<PostsCubit>().addComment(
-    //       postId: widget.id,
-    //       name: name,
-    //       email: email,
-    //       comment: comment,
-    //     );
+    StoreProvider.of<AppState>(context).dispatch(AddPostComment(
+      postId: widget.id,
+      name: name,
+      email: email,
+      comment: comment,
+    ));
   }
 
   @override
