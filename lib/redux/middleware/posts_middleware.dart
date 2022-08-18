@@ -1,10 +1,11 @@
+import 'package:flutter_social_demo/api/models/models.dart';
 import 'package:flutter_social_demo/api/post_api.dart';
 import 'package:flutter_social_demo/app/config/exceptions.dart';
 import 'package:flutter_social_demo/app/constants/errors_const.dart';
-import 'package:flutter_social_demo/api/models/post_model.dart';
 import 'package:flutter_social_demo/redux/actions/posts_actions.dart';
 import 'package:flutter_social_demo/redux/app_state.dart';
 import 'package:flutter_social_demo/services/caching_service.dart';
+import 'package:flutter_social_demo/services/hive_service.dart';
 import 'package:flutter_social_demo/services/shared_preferences.dart';
 import 'package:redux/redux.dart';
 
@@ -16,6 +17,7 @@ List<Middleware<AppState>> createPostsMiddleware() {
         _fetchPostsList(refresh: false)),
     TypedMiddleware<AppState, RefreshPostListAction>(
         _fetchPostsList(refresh: true)),
+    TypedMiddleware<AppState, GetPostDetailAction>(_fetchPostDetail()),
   ];
 }
 
@@ -63,4 +65,72 @@ Middleware<AppState> _fetchPostsList({required bool refresh}) {
       store.dispatch(GetPostListSucceedAction(postList: data));
     }
   };
+}
+
+Middleware<AppState> _fetchPostDetail() {
+  return (Store<AppState> store, action, NextDispatcher next) {
+    next(action);
+
+    final int postId = action.postId;
+    Post? data;
+
+    Future(() async {
+      try {
+        // First check if we have anything cached
+        // If there is nothing, then fetch fresh data
+        data = await HiveService.getPost(id: postId);
+        // if data is null
+        data ??= await _postsApi.getPostData(id: postId);
+
+        if (data?.comments == null || data!.comments!.isEmpty) {
+          // get comments for current post if for some reason
+          // we try to access detail with no cached data
+          if (data != null) {
+            List<Comment> postComments =
+                await getPostComments(postId: data!.id);
+            data!.comments = postComments;
+
+            // save received object to HiveBox
+            data!.save();
+          }
+        }
+
+        store.dispatch(GetPostDetailSuccessAction(data: data!));
+      } on ParseException {
+        store.dispatch(PostErrorAction(errorMessage: GeneralErrors.parseError));
+      } catch (e) {
+        store.dispatch(
+            PostErrorAction(errorMessage: GeneralErrors.generalError));
+      }
+    });
+
+    // HiveService.getPost(id: postId)
+    //     .then((Post? data) {
+    //       if (data == null) {
+    //         _postsApi.getPostData(id: postId).then((Post? data) {});
+    //       }
+    //     })
+    //     .catchError(
+    //       test: ((error) => error is ParseException),
+    //       (error, _) => store.dispatch(
+    //           PostErrorAction(errorMessage: GeneralErrors.parseError)),
+    //     )
+    //     .onError(
+    //       (error, _) => store.dispatch(
+    //           PostErrorAction(errorMessage: GeneralErrors.generalError)),
+    //     );
+  };
+}
+
+Future<List<Comment>> getPostComments({required int postId}) async {
+  try {
+    List<Comment> comments = [];
+    comments = await _postsApi.getComments(postId: postId);
+
+    return comments;
+  } on ParseException {
+    rethrow;
+  } catch (e) {
+    rethrow;
+  }
 }

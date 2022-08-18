@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
 // Project imports:
 import 'package:flutter_social_demo/app/config/route_arguments/detail_page_arguments.dart';
@@ -15,8 +15,10 @@ import 'package:flutter_social_demo/app/uikit/empty_result.dart';
 import 'package:flutter_social_demo/app/uikit/error_page.dart';
 import 'package:flutter_social_demo/app/uikit/loader_page.dart';
 import 'package:flutter_social_demo/api/models/models.dart';
-import 'package:flutter_social_demo/screens/posts/bloc/posts_cubit.dart';
+import 'package:flutter_social_demo/redux/actions/posts_actions.dart';
+import 'package:flutter_social_demo/redux/app_state.dart';
 import 'package:flutter_social_demo/screens/posts/ui/widgets/bottom_sheet_form.dart';
+import 'package:flutter_social_demo/screens/posts/view_model/post_detail_view_model.dart';
 
 class PostDetailScreen extends StatelessWidget {
   final DetailPageArgument arguments;
@@ -90,106 +92,94 @@ class _PostDetailViewState extends State<PostDetailView> {
   }
 
   void sendForm(String name, String email, String comment) {
-    context.read<PostsCubit>().addComment(
-          postId: widget.id,
-          name: name,
-          email: email,
-          comment: comment,
-        );
+    // context.read<PostsCubit>().addComment(
+    //       postId: widget.id,
+    //       name: name,
+    //       email: email,
+    //       comment: comment,
+    //     );
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    context.read<PostsCubit>().getDetail(id: widget.id);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PostsCubit, PostsState>(builder: (context, state) {
-      final bool receivedState = state is PostDetailReceived;
-      final bool loadingState = state is PostRequested;
-      final bool errorState = state is PostError;
-      String errorMessage = '';
-      Post? post;
-
-      if (errorState) {
-        errorMessage = state.error;
-      }
-      if (receivedState) {
-        post = state.data;
-      }
-
-      return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          toolbarHeight: 50,
-          centerTitle: true,
-          title: Text(
-            post != null ? post.title : AppDictionary.postDetailTitle,
-          ),
-          leading: GestureDetector(
-            onTap: () => Navigator.of(context).pop(),
-            child: const Icon(
-              Icons.chevron_left,
-              size: 30,
+    return StoreConnector<AppState, PostDetailViewModel>(
+      distinct: true,
+      converter: (store) => store.state.postDetailScreenState,
+      onInit: (store) => store.dispatch(GetPostDetailAction(postId: widget.id)),
+      builder: (_, state) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            toolbarHeight: 50,
+            centerTitle: true,
+            title: Text(
+              state.post != null
+                  ? state.post!.title
+                  : AppDictionary.postDetailTitle,
+            ),
+            leading: GestureDetector(
+              onTap: () => Navigator.of(context).pop(),
+              child: const Icon(
+                Icons.chevron_left,
+                size: 30,
+              ),
             ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _showForm();
-          },
-          child: const Icon(
-            Icons.add,
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              _showForm();
+            },
+            child: const Icon(
+              Icons.add,
+            ),
           ),
-        ),
-        extendBody: true,
-        body: Column(
-          children: [
-            Expanded(
-              child: CustomScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                slivers: [
-                  SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      return receivedState
-                          ? post != null
-                              ? _DetailPostBody(
-                                  body: post.body,
-                                  title: post.title,
-                                  comments: post.comments,
-                                )
-                              : const EmptyPage(
-                                  message: GeneralErrors.emptyData)
-                          : Column(
-                              children: [
-                                SizedBox(
-                                  height: MediaQuery.of(context).size.height,
-                                  child: loadingState
-                                      ? const LoaderPage()
-                                      : ErrorPage(
-                                          message: errorMessage,
-                                        ),
-                                ),
-                              ],
-                            );
-                    },
-                    childCount: 1,
-                  )),
-                  const SliverPadding(
-                    sliver: null,
-                    padding: EdgeInsets.only(bottom: 25),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      );
-    });
+          extendBody: true,
+          body: Column(
+            children: [
+              Expanded(
+                child: CustomScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  slivers: [
+                    SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        return state.isLoading
+                            ? Column(
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height,
+                                    child: state.isError == true
+                                        ? ErrorPage(
+                                            message: state.errorMessage!,
+                                          )
+                                        : const LoaderPage(),
+                                  ),
+                                ],
+                              )
+                            : state.post != null
+                                ? _DetailPostBody(
+                                    body: state.post!.body,
+                                    title: state.post!.title,
+                                    comments: state.post!.comments,
+                                  )
+                                : const EmptyPage(
+                                    message: GeneralErrors.emptyData);
+                      },
+                      childCount: 1,
+                    )),
+                    const SliverPadding(
+                      sliver: null,
+                      padding: EdgeInsets.only(bottom: 25),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
   }
 }
 
