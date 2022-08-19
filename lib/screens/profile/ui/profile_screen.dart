@@ -138,7 +138,7 @@ class _ProfileCard extends StatelessWidget {
                     width: 120,
                     fit: BoxFit.cover,
                     imageUrl:
-                        'https://ru.seaicons.com/wp-content/uploads/2016/06/The-Witcher-1-icon.png',
+                        'https://icons.iconarchive.com/icons/3xhumed/mega-games-pack-24/256/The-Witcher-Enhaced-Edition-1-icon.png',
                     placeholder: (context, url) => Loader(
                       color: Theme.of(context).colorScheme.primary,
                       size: 20,
