@@ -2,7 +2,10 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_social_demo/redux/actions/album_actions.dart';
+import 'package:flutter_social_demo/redux/app_state.dart';
+import 'package:flutter_social_demo/screens/albums/view_model/album_list_view_model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // Project imports:
@@ -11,8 +14,6 @@ import 'package:flutter_social_demo/app/uikit/empty_result.dart';
 import 'package:flutter_social_demo/app/uikit/error_page.dart';
 import 'package:flutter_social_demo/app/uikit/loader_page.dart';
 import 'package:flutter_social_demo/app/uikit/smart_refresh_components/refresh_header.dart';
-import 'package:flutter_social_demo/api/models/models.dart';
-import 'package:flutter_social_demo/screens/albums/bloc/albums_cubit.dart';
 import 'package:flutter_social_demo/screens/albums/ui/widgets/album_card.dart';
 
 class AlbumsListView extends StatefulWidget {
@@ -30,49 +31,30 @@ class _AlbumsListViewState extends State<AlbumsListView>
       RefreshController(initialRefresh: false);
 
   @override
-  void initState() {
-    super.initState();
-
-    context.read<AlbumsCubit>().getList();
-  }
-
-  Future<void> _refreshScreen({
-    required List<Album> list,
-  }) async {
-    await context.read<AlbumsCubit>().refreshList(oldList: list);
-    _refreshController.refreshCompleted();
-  }
-
-  @override
   Widget build(BuildContext context) {
     super.build;
-    return BlocBuilder<AlbumsCubit, AlbumsState>(
-      builder: (context, state) {
-        final bool receivedState = state is AlbumsReceived;
-        final bool loadingState = state is AlbumsRequested;
-        final bool errorState = state is AlbumError;
-        String errorMessage = '';
-        List<Album>? albums;
 
-        if (errorState) {
-          errorMessage = state.error;
-        }
-        if (receivedState) {
-          albums = state.list;
-        }
-
-        return loadingState
+    return StoreConnector<AppState, AlbumListViewModel>(
+      distinct: true,
+      converter: (store) => store.state.albumsScreenState,
+      onInit: (store) => store.dispatch(GetAlbumListAction()),
+      builder: (_, state) {
+        return state.isLoading
             ? const LoaderPage()
             : SmartRefresher(
                 enablePullDown: true,
                 enablePullUp: false,
                 controller: _refreshController,
                 header: const RefreshHeader(),
-                onRefresh: () async {
-                  await _refreshScreen(list: albums ?? []);
+                onRefresh: () {
+                  StoreProvider.of<AppState>(context).dispatch(
+                      RefreshAlbumListAction(oldList: state.albumList ?? []));
                 },
-                child: receivedState
-                    ? albums!.isNotEmpty
+                child: (state.isError == true)
+                    ? ErrorPage(
+                        message: state.errorMessage!,
+                      )
+                    : (state.albumList != null && state.albumList!.isNotEmpty)
                         ? Padding(
                             padding: const EdgeInsets.only(
                                 left: 5, right: 5, top: 15),
@@ -81,25 +63,24 @@ class _AlbumsListViewState extends State<AlbumsListView>
                               crossAxisSpacing: 2,
                               mainAxisSpacing: 2,
                               children: List.generate(
-                                  albums.length,
+                                  state.albumList!.length,
                                   (i) => AlbumCard(
-                                        id: albums![i].id,
-                                        title: albums[i].title,
-                                        thumbnailUrl: (albums[i].photos !=
-                                                    null &&
-                                                albums[i].photos!.isNotEmpty)
-                                            ? albums[i].photos![0].thumbnailUrl
-                                            : null,
+                                        id: state.albumList![i].id,
+                                        title: state.albumList![i].title,
+                                        thumbnailUrl:
+                                            (state.albumList![i].photos !=
+                                                        null &&
+                                                    state.albumList![i].photos!
+                                                        .isNotEmpty)
+                                                ? state.albumList![i].photos![0]
+                                                    .thumbnailUrl
+                                                : null,
                                       )),
                             ),
                           )
                         : const EmptyPage(
                             message: GeneralErrors.emptyUsers,
-                          )
-                    : ErrorPage(
-                        message: errorMessage,
-                      ),
-              );
+                          ));
       },
     );
   }

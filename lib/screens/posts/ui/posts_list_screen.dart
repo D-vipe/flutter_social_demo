@@ -51,7 +51,7 @@ class _PostsListViewState extends State<PostsListView>
                 enablePullUp: false,
                 controller: _refreshController,
                 header: const RefreshHeader(),
-                onRefresh: () async {
+                onRefresh: () {
                   StoreProvider.of<AppState>(context).dispatch(
                       RefreshPostListAction(oldList: state.postList ?? []));
                 },

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
 // Project imports:
 import 'package:flutter_social_demo/app/config/route_arguments/detail_page_arguments.dart';
@@ -17,7 +18,10 @@ import 'package:flutter_social_demo/app/uikit/error_page.dart';
 import 'package:flutter_social_demo/app/uikit/loader.dart';
 import 'package:flutter_social_demo/app/uikit/loader_page.dart';
 import 'package:flutter_social_demo/api/models/models.dart';
+import 'package:flutter_social_demo/redux/actions/album_actions.dart';
+import 'package:flutter_social_demo/redux/app_state.dart';
 import 'package:flutter_social_demo/screens/albums/bloc/albums_cubit.dart';
+import 'package:flutter_social_demo/screens/albums/view_model/album_detail_view_model.dart';
 
 class AlbumDetailScreen extends StatelessWidget {
   final DetailPageArgument arguments;
@@ -45,91 +49,79 @@ class AlbumDetailView extends StatefulWidget {
 
 class _AlbumDetailViewState extends State<AlbumDetailView> {
   @override
-  void initState() {
-    super.initState();
-
-    context.read<AlbumsCubit>().getDetail(id: widget.id);
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AlbumsCubit, AlbumsState>(builder: (context, state) {
-      final bool receivedState = state is AlbumDetailReceived;
-      final bool loadingState = state is AlbumsRequested;
-      final bool errorState = state is AlbumError;
-      String errorMessage = '';
-      Album? album;
-
-      if (errorState) {
-        errorMessage = state.error;
-      }
-      if (receivedState) {
-        album = state.data;
-      }
-
-      return Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 50,
-          centerTitle: true,
-          title: Text(
-            album != null ? album.title : AppDictionary.postDetailTitle,
-          ),
-          leading: GestureDetector(
-            onTap: () => Navigator.of(context).pop(),
-            child: const Icon(
-              Icons.chevron_left,
-              size: 30,
+    return StoreConnector<AppState, AlbumDetailViewModel>(
+      distinct: true,
+      converter: (store) => store.state.albumDetailScreenState,
+      onInit: (store) =>
+          store.dispatch(GetAlbumDetailAction(albumId: widget.id)),
+      builder: (_, state) {
+        return Scaffold(
+          appBar: AppBar(
+            toolbarHeight: 50,
+            centerTitle: true,
+            title: Text(
+              state.album != null
+                  ? state.album!.title
+                  : AppDictionary.postDetailTitle,
+            ),
+            leading: GestureDetector(
+              onTap: () => Navigator.of(context).pop(),
+              child: const Icon(
+                Icons.chevron_left,
+                size: 30,
+              ),
             ),
           ),
-        ),
-        extendBody: true,
-        body: Column(
-          children: [
-            Expanded(
-              child: CustomScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                slivers: [
-                  SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      return receivedState
-                          ? album!.photos != null && album.photos!.isNotEmpty
-                              ? Container(
-                                  height:
-                                      MediaQuery.of(context).size.height - 150,
-                                  alignment: Alignment.center,
-                                  child: _DetailAlbumBody(
-                                    photos: album.photos ?? [],
+          extendBody: true,
+          body: Column(
+            children: [
+              Expanded(
+                child: CustomScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  slivers: [
+                    SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        return state.isLoading
+                            ? Column(
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height,
+                                    child: state.isError == true
+                                        ? ErrorPage(
+                                            message: state.errorMessage!,
+                                          )
+                                        : const LoaderPage(),
                                   ),
-                                )
-                              : const EmptyPage(
-                                  message: GeneralErrors.emptyData)
-                          : Column(
-                              children: [
-                                SizedBox(
-                                  height: MediaQuery.of(context).size.height,
-                                  child: loadingState
-                                      ? const LoaderPage()
-                                      : ErrorPage(
-                                          message: errorMessage,
-                                        ),
-                                ),
-                              ],
-                            );
-                    },
-                    childCount: 1,
-                  )),
-                  const SliverPadding(
-                    sliver: null,
-                    padding: EdgeInsets.only(bottom: 25),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      );
-    });
+                                ],
+                              )
+                            : state.album != null
+                                ? Container(
+                                    height: MediaQuery.of(context).size.height -
+                                        150,
+                                    alignment: Alignment.center,
+                                    child: _DetailAlbumBody(
+                                      photos: state.album!.photos ?? [],
+                                    ),
+                                  )
+                                : const EmptyPage(
+                                    message: GeneralErrors.emptyData);
+                      },
+                      childCount: 1,
+                    )),
+                    const SliverPadding(
+                      sliver: null,
+                      padding: EdgeInsets.only(bottom: 25),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
   }
 }
 

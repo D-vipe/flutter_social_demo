@@ -55,7 +55,7 @@ class _UsersListViewState extends State<UsersListView>
                 controller: _refreshController,
                 header: const RefreshHeader(),
                 footer: const LoadMoreFooter(),
-                onRefresh: () async {
+                onRefresh: () {
                   StoreProvider.of<AppState>(context).dispatch(
                       RefreshUsersListAction(oldList: state.usersList ?? []));
                 },

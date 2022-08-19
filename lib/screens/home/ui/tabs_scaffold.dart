@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_social_demo/screens/albums/ui/albums_list_screen.dart';
 
 // Package imports:
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -62,10 +63,9 @@ class _TabsScaffoldState extends State<TabsScaffold> {
     tabs = [
       const UsersListView(),
       const PostsListView(),
+      const AlbumsListView(),
       Container(),
       Container(),
-      Container(),
-      // const AlbumsListView(),
       // ProfileView(
       //   onChangedTab: onChangedTab,
       // ),
