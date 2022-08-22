@@ -1,7 +1,10 @@
+// Package imports:
+import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:flutter_social_demo/api/models/post_model.dart';
 import 'package:flutter_social_demo/redux/actions/posts_actions.dart';
 import 'package:flutter_social_demo/screens/posts/view_model/posts_view_model.dart';
-import 'package:redux/redux.dart';
 
 final postListReducer = combineReducers<PostsViewModel>([
   TypedReducer<PostsViewModel, GetPostListSucceedAction>(_fetch),

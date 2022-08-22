@@ -1,7 +1,9 @@
 // Package imports:
-import 'package:flutter_social_demo/api/models/comment_model.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
+import 'package:flutter_social_demo/api/models/comment_model.dart';
 
 // Project imports:
 

@@ -1,6 +1,9 @@
+// Package imports:
+import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:flutter_social_demo/redux/actions/album_actions.dart';
 import 'package:flutter_social_demo/screens/albums/view_model/album_detail_view_model.dart';
-import 'package:redux/redux.dart';
 
 final albumDetailReducer = combineReducers<AlbumDetailViewModel>([
   TypedReducer<AlbumDetailViewModel, GetAlbumDetailSuccessAction>(_fetch),

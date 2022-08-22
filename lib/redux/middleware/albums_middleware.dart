@@ -1,3 +1,7 @@
+// Package imports:
+import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:flutter_social_demo/api/album_api.dart';
 import 'package:flutter_social_demo/api/models/models.dart';
 import 'package:flutter_social_demo/app/config/exceptions.dart';
@@ -7,7 +11,6 @@ import 'package:flutter_social_demo/redux/app_state.dart';
 import 'package:flutter_social_demo/services/caching_service.dart';
 import 'package:flutter_social_demo/services/hive_service.dart';
 import 'package:flutter_social_demo/services/shared_preferences.dart';
-import 'package:redux/redux.dart';
 
 final AlbumApi _albumsApi = AlbumApi();
 

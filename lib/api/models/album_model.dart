@@ -1,7 +1,9 @@
 // Package imports:
-import 'package:flutter_social_demo/api/models/photo_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
+import 'package:flutter_social_demo/api/models/photo_model.dart';
 
 // Project imports:
 

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 // Package imports:
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 
 // Project imports:
 import 'package:flutter_social_demo/app/config/app_router.dart';
@@ -16,7 +17,6 @@ import 'package:flutter_social_demo/services/caching_service.dart';
 import 'package:flutter_social_demo/services/hive_service.dart';
 import 'package:flutter_social_demo/services/shared_preferences.dart';
 import 'package:flutter_social_demo/services/theme_service.dart';
-import 'package:redux/redux.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

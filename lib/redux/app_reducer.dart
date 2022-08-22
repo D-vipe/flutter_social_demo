@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:flutter_social_demo/redux/app_state.dart';
 import 'package:flutter_social_demo/redux/reducers/album_deail_reducer.dart';
 import 'package:flutter_social_demo/redux/reducers/album_list_reducer.dart';

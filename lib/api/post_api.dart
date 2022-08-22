@@ -2,11 +2,11 @@
 import 'package:dio/dio.dart';
 
 // Project imports:
+import 'package:flutter_social_demo/api/models/comment_model.dart';
+import 'package:flutter_social_demo/api/models/post_model.dart';
 import 'package:flutter_social_demo/app/config/dio_settings.dart';
 import 'package:flutter_social_demo/app/config/exceptions.dart';
 import 'package:flutter_social_demo/app/config/path.dart';
-import 'package:flutter_social_demo/api/models/comment_model.dart';
-import 'package:flutter_social_demo/api/models/post_model.dart';
 import 'package:flutter_social_demo/services/shared_preferences.dart';
 
 class PostsApi {

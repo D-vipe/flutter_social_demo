@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_social_demo/redux/actions/user_actions.dart';
-import 'package:flutter_social_demo/redux/app_state.dart';
-import 'package:flutter_social_demo/screens/users_list/view_model/users_list_view_model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // Project imports:
@@ -15,7 +12,10 @@ import 'package:flutter_social_demo/app/uikit/error_page.dart';
 import 'package:flutter_social_demo/app/uikit/loader_page.dart';
 import 'package:flutter_social_demo/app/uikit/smart_refresh_components/refresh_footer.dart';
 import 'package:flutter_social_demo/app/uikit/smart_refresh_components/refresh_header.dart';
+import 'package:flutter_social_demo/redux/actions/user_actions.dart';
+import 'package:flutter_social_demo/redux/app_state.dart';
 import 'package:flutter_social_demo/screens/users_list/ui/widgets/user_card.dart';
+import 'package:flutter_social_demo/screens/users_list/view_model/users_list_view_model.dart';
 
 class UsersListView extends StatefulWidget {
   const UsersListView({Key? key}) : super(key: key);

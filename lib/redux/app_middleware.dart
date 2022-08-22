@@ -1,9 +1,12 @@
-import 'package:flutter_social_demo/redux/middleware/profile_middleware.dart';
+// Package imports:
 import 'package:redux/redux.dart';
 import 'package:redux_logging/redux_logging.dart';
+
+// Project imports:
+import 'package:flutter_social_demo/redux/app_state.dart';
 import 'package:flutter_social_demo/redux/middleware/albums_middleware.dart';
 import 'package:flutter_social_demo/redux/middleware/posts_middleware.dart';
-import 'package:flutter_social_demo/redux/app_state.dart';
+import 'package:flutter_social_demo/redux/middleware/profile_middleware.dart';
 import 'package:flutter_social_demo/redux/middleware/user_middleware.dart';
 
 List<Middleware<AppState>> createAppMiddleWare() {

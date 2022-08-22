@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:flutter_social_demo/screens/albums/view_model/album_detail_view_model.dart';
 import 'package:flutter_social_demo/screens/albums/view_model/album_list_view_model.dart';
 import 'package:flutter_social_demo/screens/posts/view_model/post_detail_view_model.dart';

@@ -2,10 +2,10 @@
 import 'package:dio/dio.dart';
 
 // Project imports:
+import 'package:flutter_social_demo/api/models/user_model.dart';
 import 'package:flutter_social_demo/app/config/dio_settings.dart';
 import 'package:flutter_social_demo/app/config/exceptions.dart';
 import 'package:flutter_social_demo/app/config/path.dart';
-import 'package:flutter_social_demo/api/models/user_model.dart';
 
 class UserApi {
   final Dio _dio;

@@ -1,6 +1,9 @@
+// Package imports:
+import 'package:redux/redux.dart';
+
+// Project imports:
 import 'package:flutter_social_demo/redux/actions/profile_actions.dart';
 import 'package:flutter_social_demo/screens/profile/view_model/profile_view_model.dart';
-import 'package:redux/redux.dart';
 
 final profileReducer = combineReducers<ProfileViewModel>([
   TypedReducer<ProfileViewModel, GetProfileSucceedAction>(_fetch),

@@ -4,16 +4,10 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_social_demo/redux/actions/album_actions.dart';
-import 'package:flutter_social_demo/redux/actions/posts_actions.dart';
-import 'package:flutter_social_demo/redux/actions/profile_actions.dart';
-import 'package:flutter_social_demo/redux/app_state.dart';
-import 'package:flutter_social_demo/screens/albums/view_model/album_list_view_model.dart';
-import 'package:flutter_social_demo/screens/posts/view_model/posts_view_model.dart';
-import 'package:flutter_social_demo/screens/profile/view_model/profile_view_model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // Project imports:
+import 'package:flutter_social_demo/api/models/models.dart';
 import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
 import 'package:flutter_social_demo/app/constants/errors_const.dart';
 import 'package:flutter_social_demo/app/theme/text_styles.dart';
@@ -23,9 +17,15 @@ import 'package:flutter_social_demo/app/uikit/error_page.dart';
 import 'package:flutter_social_demo/app/uikit/loader.dart';
 import 'package:flutter_social_demo/app/uikit/loader_page.dart';
 import 'package:flutter_social_demo/app/uikit/smart_refresh_components/refresh_header.dart';
-import 'package:flutter_social_demo/api/models/models.dart';
+import 'package:flutter_social_demo/redux/actions/album_actions.dart';
+import 'package:flutter_social_demo/redux/actions/posts_actions.dart';
+import 'package:flutter_social_demo/redux/actions/profile_actions.dart';
+import 'package:flutter_social_demo/redux/app_state.dart';
 import 'package:flutter_social_demo/screens/albums/ui/widgets/album_card.dart';
+import 'package:flutter_social_demo/screens/albums/view_model/album_list_view_model.dart';
 import 'package:flutter_social_demo/screens/posts/ui/widgets/post_card.dart';
+import 'package:flutter_social_demo/screens/posts/view_model/posts_view_model.dart';
+import 'package:flutter_social_demo/screens/profile/view_model/profile_view_model.dart';
 
 class ProfileView extends StatefulWidget {
   final Function onChangedTab;

@@ -1,6 +1,8 @@
 // Package imports:
-import 'package:flutter_social_demo/api/models/models.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+// Project imports:
+import 'package:flutter_social_demo/api/models/models.dart';
 
 // Project imports:
 

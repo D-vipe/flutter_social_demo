@@ -7,6 +7,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 // Project imports:
+import 'package:flutter_social_demo/api/models/models.dart';
 import 'package:flutter_social_demo/app/config/route_arguments/detail_page_arguments.dart';
 import 'package:flutter_social_demo/app/constants/app_colors.dart';
 import 'package:flutter_social_demo/app/constants/app_dictionary.dart';
@@ -16,7 +17,6 @@ import 'package:flutter_social_demo/app/uikit/empty_result.dart';
 import 'package:flutter_social_demo/app/uikit/error_page.dart';
 import 'package:flutter_social_demo/app/uikit/loader.dart';
 import 'package:flutter_social_demo/app/uikit/loader_page.dart';
-import 'package:flutter_social_demo/api/models/models.dart';
 import 'package:flutter_social_demo/redux/actions/album_actions.dart';
 import 'package:flutter_social_demo/redux/app_state.dart';
 import 'package:flutter_social_demo/screens/albums/view_model/album_detail_view_model.dart';
