@@ -3,8 +3,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
-import 'package:flutter_social_demo/api/models/album_model.dart';
-import 'package:flutter_social_demo/api/models/post_model.dart';
 import 'package:flutter_social_demo/api/models/user_model.dart';
 
 part 'profile_model.g.dart';
@@ -14,12 +12,8 @@ part 'profile_model.g.dart';
 class Profile extends HiveObject {
   @HiveField(0)
   final User user;
-  @HiveField(1)
-  List<Post>? posts = [];
-  @HiveField(2)
-  List<Album>? albums = [];
 
-  Profile({required this.user, this.albums, this.posts});
+  Profile({required this.user});
 
   factory Profile.fromJson(Map<String, dynamic> json) =>
       _$ProfileFromJson(json);

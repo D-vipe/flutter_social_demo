@@ -21,14 +21,14 @@ class LoaderPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                        height: marginTop ?? 0,
-                      ),
+                  height: marginTop ?? 0,
+                ),
                 Loader(
                   size: 40,
                   color: Theme.of(context).colorScheme.primary,
                 ),
                 const SizedBox(
-                  height: 120,
+                  height: 100,
                 ),
               ],
             ),

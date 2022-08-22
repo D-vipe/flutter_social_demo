@@ -3,7 +3,14 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_social_demo/redux/actions/album_actions.dart';
+import 'package:flutter_social_demo/redux/actions/posts_actions.dart';
+import 'package:flutter_social_demo/redux/actions/profile_actions.dart';
+import 'package:flutter_social_demo/redux/app_state.dart';
+import 'package:flutter_social_demo/screens/albums/view_model/album_list_view_model.dart';
+import 'package:flutter_social_demo/screens/posts/view_model/posts_view_model.dart';
+import 'package:flutter_social_demo/screens/profile/view_model/profile_view_model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // Project imports:
@@ -19,7 +26,6 @@ import 'package:flutter_social_demo/app/uikit/smart_refresh_components/refresh_h
 import 'package:flutter_social_demo/api/models/models.dart';
 import 'package:flutter_social_demo/screens/albums/ui/widgets/album_card.dart';
 import 'package:flutter_social_demo/screens/posts/ui/widgets/post_card.dart';
-import 'package:flutter_social_demo/screens/profile/bloc/profile_cubit.dart';
 
 class ProfileView extends StatefulWidget {
   final Function onChangedTab;
@@ -40,71 +46,71 @@ class _ProfileViewState extends State<ProfileView>
       RefreshController(initialRefresh: false);
 
   @override
-  void initState() {
-    super.initState();
-
-    context.read<ProfileCubit>().getProfile();
-  }
-
-  Future<void> _refreshScreen({
-    required Profile? data,
-  }) async {
-    await context.read<ProfileCubit>().refreshProfile(oldData: data);
-    _refreshController.refreshCompleted();
-  }
-
-  @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocBuilder<ProfileCubit, ProfileState>(builder: (context, state) {
-      final bool receivedState = state is ProfileReceived;
-      final bool loadingState = state is ProfileRequested;
-      final bool errorState = state is ProfileError;
-      String errorMessage = '';
-      Profile? profile;
+    return StoreConnector<AppState, ProfileViewModel>(
+      distinct: true,
+      converter: (store) => store.state.profileScreenState,
+      onInit: (store) => store.dispatch(GetProfileAction()),
+      builder: (_, state) {
+        return state.isLoading
+            ? const LoaderPage()
+            : SmartRefresher(
+                enablePullDown: true,
+                enablePullUp: false,
+                controller: _refreshController,
+                header: const RefreshHeader(),
+                onRefresh: () async {
+                  StoreProvider.of<AppState>(context).dispatch(
+                      RefreshProfileAction(oldProfile: state.profile!));
+                },
+                child: (state.isError == true)
+                    ? ErrorPage(
+                        message: state.errorMessage!,
+                      )
+                    : (state.profile != null)
+                        ? ListView(
+                            padding: const EdgeInsets.only(bottom: 115),
+                            children: [
+                              _ProfileCard(
+                                user: state.profile!.user,
+                              ),
+                              StoreConnector<AppState, PostsViewModel>(
+                                distinct: true,
+                                converter: (store) =>
+                                    store.state.postsScreenState,
+                                onInit: (store) =>
+                                    store.dispatch(GetPostsProfileAction()),
+                                builder: (_, state) {
+                                  return _ProfilePosts(
+                                    onChangedTab: widget.onChangedTab,
+                                    isUpdating: state.isLoading,
+                                    posts: state.postListProfile ?? [],
+                                  );
+                                },
+                              ),
 
-      if (errorState) {
-        errorMessage = state.error;
-      }
-      if (receivedState) {
-        profile = state.data;
-      }
-
-      return loadingState
-          ? const LoaderPage()
-          : SmartRefresher(
-              enablePullDown: true,
-              enablePullUp: false,
-              controller: _refreshController,
-              header: const RefreshHeader(),
-              onRefresh: () async {
-                await _refreshScreen(data: profile);
-              },
-              child: receivedState
-                  ? profile != null
-                      ? ListView(
-                          padding: const EdgeInsets.only(bottom: 115),
-                          children: [
-                            _ProfileCard(
-                              user: profile.user,
-                            ),
-                            _ProfilePosts(
-                              onChangedTab: widget.onChangedTab,
-                              posts: profile.posts ?? [],
-                            ),
-                            _ProfileAlbums(
-                                onChangedTab: widget.onChangedTab,
-                                albums: profile.albums ?? [])
-                          ],
-                        )
-                      : const EmptyPage(
-                          message: GeneralErrors.emptyUsers,
-                        )
-                  : ErrorPage(
-                      message: errorMessage,
-                    ),
-            );
-    });
+                              StoreConnector<AppState, AlbumListViewModel>(
+                                distinct: true,
+                                converter: (store) =>
+                                    store.state.albumsScreenState,
+                                onInit: (store) =>
+                                    store.dispatch(GetAlbumsProfileAction()),
+                                builder: (_, state) {
+                                  return _ProfileAlbums(
+                                      onChangedTab: widget.onChangedTab,
+                                      isUpdating: state.isLoading,
+                                      albums: state.albumListProfile ?? []);
+                                },
+                              )
+                              //
+                            ],
+                          )
+                        : const EmptyPage(
+                            message: GeneralErrors.emptyUsers,
+                          ));
+      },
+    );
   }
 }
 
@@ -248,9 +254,13 @@ class _ProfileCard extends StatelessWidget {
 
 class _ProfilePosts extends StatelessWidget {
   final Function onChangedTab;
+  final bool isUpdating;
   final List<Post> posts;
   const _ProfilePosts(
-      {Key? key, required this.posts, required this.onChangedTab})
+      {Key? key,
+      required this.posts,
+      required this.isUpdating,
+      required this.onChangedTab})
       : super(key: key);
 
   @override
@@ -275,19 +285,24 @@ class _ProfilePosts extends StatelessWidget {
               const SizedBox(height: 10),
               SizedBox(
                 height: 125,
-                child: ListView.builder(
-                  shrinkWrap: false,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: posts.length,
-                  itemBuilder: (BuildContext context, int i) {
-                    return PostCard(
-                      width: MediaQuery.of(context).size.width / 2,
-                      title: posts[i].title,
-                      postId: posts[i].id,
-                      body: posts[i].body,
-                    );
-                  },
-                ),
+                child: isUpdating
+                    ? Center(
+                        child: Loader(
+                            color: Theme.of(context).colorScheme.primary),
+                      )
+                    : ListView.builder(
+                        shrinkWrap: false,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: posts.length,
+                        itemBuilder: (BuildContext context, int i) {
+                          return PostCard(
+                            width: MediaQuery.of(context).size.width / 2,
+                            title: posts[i].title,
+                            postId: posts[i].id,
+                            body: posts[i].body,
+                          );
+                        },
+                      ),
               ),
             ]),
       ),
@@ -297,9 +312,13 @@ class _ProfilePosts extends StatelessWidget {
 
 class _ProfileAlbums extends StatelessWidget {
   final Function onChangedTab;
+  final bool isUpdating;
   final List<Album> albums;
   const _ProfileAlbums(
-      {Key? key, required this.albums, required this.onChangedTab})
+      {Key? key,
+      required this.albums,
+      required this.onChangedTab,
+      required this.isUpdating})
       : super(key: key);
 
   @override
@@ -324,22 +343,27 @@ class _ProfileAlbums extends StatelessWidget {
               const SizedBox(height: 10),
               SizedBox(
                 height: 125,
-                child: ListView.builder(
-                  shrinkWrap: false,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: albums.length,
-                  itemBuilder: (BuildContext context, int i) {
-                    return AlbumCard(
-                      margin: 10,
-                      id: albums[i].id,
-                      title: albums[i].title,
-                      thumbnailUrl: (albums[i].photos != null &&
-                              albums[i].photos!.isNotEmpty)
-                          ? albums[i].photos![0].thumbnailUrl
-                          : null,
-                    );
-                  },
-                ),
+                child: isUpdating
+                    ? Center(
+                        child: Loader(
+                            color: Theme.of(context).colorScheme.primary),
+                      )
+                    : ListView.builder(
+                        shrinkWrap: false,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: albums.length,
+                        itemBuilder: (BuildContext context, int i) {
+                          return AlbumCard(
+                            margin: 10,
+                            id: albums[i].id,
+                            title: albums[i].title,
+                            thumbnailUrl: (albums[i].photos != null &&
+                                    albums[i].photos!.isNotEmpty)
+                                ? albums[i].photos![0].thumbnailUrl
+                                : null,
+                          );
+                        },
+                      ),
               ),
             ]),
       ),

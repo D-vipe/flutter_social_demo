@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 // Project imports:
@@ -20,7 +19,6 @@ import 'package:flutter_social_demo/app/uikit/loader_page.dart';
 import 'package:flutter_social_demo/api/models/models.dart';
 import 'package:flutter_social_demo/redux/actions/album_actions.dart';
 import 'package:flutter_social_demo/redux/app_state.dart';
-import 'package:flutter_social_demo/screens/albums/bloc/albums_cubit.dart';
 import 'package:flutter_social_demo/screens/albums/view_model/album_detail_view_model.dart';
 
 class AlbumDetailScreen extends StatelessWidget {
@@ -30,11 +28,8 @@ class AlbumDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => AlbumsCubit(),
-      child: AlbumDetailView(
-        id: arguments.id,
-      ),
+    return AlbumDetailView(
+      id: arguments.id,
     );
   }
 }

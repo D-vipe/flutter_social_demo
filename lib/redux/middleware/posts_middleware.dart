@@ -17,6 +17,8 @@ List<Middleware<AppState>> createPostsMiddleware() {
         _fetchPostsList(refresh: false)),
     TypedMiddleware<AppState, RefreshPostListAction>(
         _fetchPostsList(refresh: true)),
+    TypedMiddleware<AppState, GetPostsProfileAction>(
+        _fetchPostsList(refresh: false)),
     TypedMiddleware<AppState, GetPostDetailAction>(_fetchPostDetail()),
     TypedMiddleware<AppState, AddPostComment>(_addComment()),
   ];

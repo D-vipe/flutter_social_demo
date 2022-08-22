@@ -17,6 +17,8 @@ List<Middleware<AppState>> createAlbumMiddleware() {
         _fetchAlbumList(refresh: false)),
     TypedMiddleware<AppState, RefreshAlbumListAction>(
         _fetchAlbumList(refresh: true)),
+    TypedMiddleware<AppState, GetAlbumsProfileAction>(
+        _fetchAlbumList(refresh: false)),
     TypedMiddleware<AppState, GetAlbumDetailAction>(_fetchAlbumDetail()),
   ];
 }
@@ -90,8 +92,6 @@ Middleware<AppState> _fetchAlbumDetail() {
     next(action);
 
     final int albumId = action.albumId;
-    Post? data;
-
     Future(() async {
       try {
         Album? data;

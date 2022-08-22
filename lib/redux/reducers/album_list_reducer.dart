@@ -5,6 +5,7 @@ import 'package:redux/redux.dart';
 
 final albumListReducer = combineReducers<AlbumListViewModel>([
   TypedReducer<AlbumListViewModel, GetAlbumListSucceedAction>(_fetch),
+  TypedReducer<AlbumListViewModel, GetAlbumsProfileAction>(_profile),
   TypedReducer<AlbumListViewModel, RefreshAlbumListAction>(_refresh),
   TypedReducer<AlbumListViewModel, AlbumErrorAction>(_errorHandler),
 ]);
@@ -12,9 +13,25 @@ final albumListReducer = combineReducers<AlbumListViewModel>([
 AlbumListViewModel _fetch(
     AlbumListViewModel state, GetAlbumListSucceedAction action) {
   List<Album> updatedList = List<Album>.from(action.albumsList);
+  List<Album> cutList = [];
+
+  for (var i = 0; i < 3; i++) {
+    cutList.add(updatedList[i]);
+  }
 
   return state.copyWith(
-      isLoading: false, isRefreshing: false, albumList: updatedList);
+    isLoading: false,
+    isRefreshing: false,
+    albumList: updatedList,
+    albumListProfile: cutList,
+  );
+}
+
+AlbumListViewModel _profile(
+    AlbumListViewModel state, GetAlbumsProfileAction action) {
+  return state.copyWith(
+    isLoading: true,
+  );
 }
 
 AlbumListViewModel _refresh(

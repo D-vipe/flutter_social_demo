@@ -3,6 +3,8 @@ import 'package:flutter_social_demo/api/models/models.dart';
 // LIST SCREEN ACTIONS
 class GetPostListAction {}
 
+class GetPostsProfileAction {}
+
 class GetPostListSucceedAction {
   final List<Post> postList;
 

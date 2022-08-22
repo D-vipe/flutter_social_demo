@@ -2,15 +2,16 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
 // Project imports:
-import 'package:flutter_social_demo/api/models/models.dart';
 import 'package:flutter_social_demo/app/constants/errors_const.dart';
-import 'package:flutter_social_demo/screens/home/bloc/init_cubit.dart';
+import 'package:flutter_social_demo/redux/actions/profile_actions.dart';
+import 'package:flutter_social_demo/redux/app_state.dart';
 import 'package:flutter_social_demo/screens/home/ui/home_error.dart';
 import 'package:flutter_social_demo/screens/home/ui/home_loading.dart';
 import 'package:flutter_social_demo/screens/home/ui/tabs_scaffold.dart';
+import 'package:flutter_social_demo/screens/profile/view_model/profile_view_model.dart';
 
 class HomeScreen extends StatefulWidget {
   final int? requestedIndex;
@@ -42,35 +43,23 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop: _onWillPop,
-        child: TabsScaffold(
-          // profile: profile,
-          requestedIndex: requestedIndex,
-        ));
-
-    // TOOO replace with redux
-    // BlocBuilder<InitialCubit, InitialState>(
-    //   builder: (context, state) {
-    //     final bool receivedState = state is InitialReceived;
-    //     final bool loadingState = state is InitialRequested;
-    //     String errorMessage = '';
-    //     Profile? profile;
-    //
-    //     if (receivedState) {
-    //       profile = state.data;
-    //     }
-    //
-    //     return loadingState
-    //         ? const HomeLoadingScreen()
-    //         : receivedState
-    //             ? profile != null
-    //                 ? TabsScaffold(
-    //                     profile: profile,
-    //                     requestedIndex: requestedIndex,
-    //                   )
-    //                 : const HomeErrorScreen(message: GeneralErrors.emptyUser)
-    //             : HomeErrorScreen(message: errorMessage);
-    //   },
-    // ),
+      onWillPop: _onWillPop,
+      child: StoreConnector<AppState, ProfileViewModel>(
+        distinct: true,
+        converter: (store) => store.state.profileScreenState,
+        onInit: (store) => store.dispatch(GetProfileAction()),
+        builder: (_, state) {
+          return state.isLoading
+              ? const HomeLoadingScreen()
+              : state.profile != null
+                  ? TabsScaffold(
+                      profile: state.profile!,
+                      requestedIndex: requestedIndex,
+                    )
+                  : HomeErrorScreen(
+                      message: state.errorMessage ?? GeneralErrors.emptyUser);
+        },
+      ),
+    );
   }
 }

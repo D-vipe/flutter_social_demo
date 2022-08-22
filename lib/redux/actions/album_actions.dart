@@ -3,6 +3,8 @@ import 'package:flutter_social_demo/api/models/models.dart';
 // ALBUM SCREEN ACTIONS
 class GetAlbumListAction {}
 
+class GetAlbumsProfileAction {}
+
 class GetAlbumListSucceedAction {
   final List<Album> albumsList;
 

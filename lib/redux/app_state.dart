@@ -3,6 +3,7 @@ import 'package:flutter_social_demo/screens/albums/view_model/album_detail_view_
 import 'package:flutter_social_demo/screens/albums/view_model/album_list_view_model.dart';
 import 'package:flutter_social_demo/screens/posts/view_model/post_detail_view_model.dart';
 import 'package:flutter_social_demo/screens/posts/view_model/posts_view_model.dart';
+import 'package:flutter_social_demo/screens/profile/view_model/profile_view_model.dart';
 import 'package:flutter_social_demo/screens/users_list/view_model/users_list_view_model.dart';
 
 @immutable
@@ -12,6 +13,7 @@ class AppState {
   final PostDetailViewModel postDetailScreenState;
   final AlbumListViewModel albumsScreenState;
   final AlbumDetailViewModel albumDetailScreenState;
+  final ProfileViewModel profileScreenState;
 
   const AppState({
     required this.usersListState,
@@ -19,6 +21,7 @@ class AppState {
     required this.postDetailScreenState,
     required this.albumsScreenState,
     required this.albumDetailScreenState,
+    required this.profileScreenState,
   });
 
   factory AppState.initialState() => AppState(
@@ -27,6 +30,7 @@ class AppState {
         postDetailScreenState: PostDetailViewModel.initial(),
         albumsScreenState: AlbumListViewModel.initial(),
         albumDetailScreenState: AlbumDetailViewModel.initial(),
+        profileScreenState: ProfileViewModel.initial(),
       );
 
   AppState copyWith({
@@ -35,6 +39,7 @@ class AppState {
     PostDetailViewModel? postDetailScreenState,
     AlbumListViewModel? albumsScreenState,
     AlbumDetailViewModel? albumDetailScreenState,
+    ProfileViewModel? profileScreenState,
   }) =>
       AppState(
         usersListState: usersListState,
@@ -44,5 +49,6 @@ class AppState {
         albumsScreenState: albumsScreenState ?? this.albumsScreenState,
         albumDetailScreenState:
             albumDetailScreenState ?? this.albumDetailScreenState,
+        profileScreenState: profileScreenState ?? this.profileScreenState,
       );
 }

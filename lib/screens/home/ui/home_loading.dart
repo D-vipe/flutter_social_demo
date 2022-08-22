@@ -11,7 +11,7 @@ class HomeLoadingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       extendBody: true,
-      body: LoaderPage(),
+      body: LoaderPage(marginTop: 100),
     );
   }
 }

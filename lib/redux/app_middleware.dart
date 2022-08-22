@@ -1,3 +1,4 @@
+import 'package:flutter_social_demo/redux/middleware/profile_middleware.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_logging/redux_logging.dart';
 import 'package:flutter_social_demo/redux/middleware/albums_middleware.dart';
@@ -10,6 +11,7 @@ List<Middleware<AppState>> createAppMiddleWare() {
   appMiddleware.addAll(createUsersListMiddleware());
   appMiddleware.addAll(createPostsMiddleware());
   appMiddleware.addAll(createAlbumMiddleware());
+  appMiddleware.addAll(createProfileMiddleware());
   appMiddleware.add(LoggingMiddleware.printer());
   return appMiddleware;
 }

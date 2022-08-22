@@ -18,21 +18,15 @@ class ProfileAdapter extends TypeAdapter<Profile> {
     };
     return Profile(
       user: fields[0] as User,
-      albums: (fields[2] as List?)?.cast<Album>(),
-      posts: (fields[1] as List?)?.cast<Post>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Profile obj) {
     writer
-      ..writeByte(3)
-      ..writeByte(0)
-      ..write(obj.user)
       ..writeByte(1)
-      ..write(obj.posts)
-      ..writeByte(2)
-      ..write(obj.albums);
+      ..writeByte(0)
+      ..write(obj.user);
   }
 
   @override
@@ -52,16 +46,8 @@ class ProfileAdapter extends TypeAdapter<Profile> {
 
 Profile _$ProfileFromJson(Map<String, dynamic> json) => Profile(
       user: User.fromJson(json['user'] as Map<String, dynamic>),
-      albums: (json['albums'] as List<dynamic>?)
-          ?.map((e) => Album.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      posts: (json['posts'] as List<dynamic>?)
-          ?.map((e) => Post.fromJson(e as Map<String, dynamic>))
-          .toList(),
     );
 
 Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
       'user': instance.user,
-      'posts': instance.posts,
-      'albums': instance.albums,
     };
